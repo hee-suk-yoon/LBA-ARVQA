@@ -10,48 +10,63 @@ Visual Question Answering (VQA) is the task of answering a question about an ima
 
 
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- Usage -->
+## Usage
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+### 0. Dependencies
+
+create a conda environment from `requirements.txt` file.
+
   ```sh
-  npm install npm@latest -g
+  conda create --name ENV_NAME --file requirements.txt
   ```
 
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### 1. Downlaod Dataset
+Download scene graphs raw data from: https://nlp.stanford.edu/data/gqa/sceneGraphs.zip
 
+Download questions raw data from: https://nlp.stanford.edu/data/gqa/questions1.2.zip
 
-<!-- USAGE EXAMPLES -->
-## Usage
+Put sceneGraph files: `train_sceneGraphs.json` and `val_sceneGraphs.json` into `gqa_data/`
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Put questions json files: `train_balanced_questions.json` and `val_balanced_questions.json` into `gqa_data/`
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+After this step, the data file structure should look like this:
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+```sh
+LBA-ARVQA
+   gqa_data/
+      train_sceneGraphs.json
+      val_sceneGraphs.json
+      train_balanced_questions.json
+      val_balanced_questions.json
+   object_list_extraction.py
+   dataset_creation.py
+   main.py
+```
+
+### 2. Object List Extracting from Questions
+Following commands should run without error:
+```sh
+python object_list_extraction.py
+```
+
+### 3. Dataset augmentation to train the reasoning model
+Following commands should run without error:
+```sh
+python dataset_creation.py
+```
+
+### 4. Training
+For now, we only have single GPU training:
+```sh
+CUDA_VISIBLE_DEVICES=0 python main.py
+```
 
 
 <!-- CONTRIBUTING -->
