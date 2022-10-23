@@ -5,7 +5,7 @@
 
 Visual Question Answering (VQA) is the task of answering a question about an image. Evaluating if the posed question is relevant to the input image has gained some attention because of the models' reliability when applied in real-life situations. However, previous approaches have not focused on reasoning about why a question is relevant/irrelevant to the given image. In this project, we develop a method that reasons the answerability of the question given an image. 
 
-
+![Method](./figures/obj_answerability.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -20,6 +20,7 @@ To get a local copy up and running follow these simple example steps.
 ### 0. Dependencies
 
 create a conda environment from `requirements.txt` file.
+
 
   ```sh
   conda create --name ENV_NAME --file requirements.txt
@@ -87,7 +88,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE -->
+LICENSE
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
@@ -146,3 +147,4 @@ This work was supported by Institute of Information & communications Technology 
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+
