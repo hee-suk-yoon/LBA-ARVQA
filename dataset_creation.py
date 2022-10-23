@@ -38,17 +38,14 @@ def inference_demo(model, classifier_head, inputs):
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 def main(args):
-    #load scene graphs
-    train_scenegraph = utils.load_json(os.path.join(args.scenegraph_path,'train_sceneGraphs.json'))
-    val_scenegraph = utils.load_json(os.path.join(args.scenegraph_path,'val_sceneGraphs.json'))
 
     #load questions 
     train_questions_list = []
     for i in range(0, 1):
-        questions = utils.load_json('/mnt/hdd/hsyoon/workspace/OOD/VQRR/gqa_data/train_balanced_questions.json')
+        questions = utils.load_v_sg(os.path.join('gqa_data', args.question_file_type))
         train_questions_list.append(questions)
 
-    with open('/mnt/hdd/hsyoon/workspace/OOD/VQRR/train_object_list.pkl', 'rb') as f:
+    with open(args.object_list, 'rb') as f:
         object_list = pickle.load(f)
 
     lemmatizer = WordNetLemmatizer() 
@@ -84,7 +81,6 @@ def main(args):
         wordtokenize_idx = utils.split_idx2wordtokenize_idx(question, indices_of_objects_list)
 
         #create question&label, instance 
-        #ipdb.set_trace()
         n = len(wordtokenize_idx)
         lsts = list(itertools.product([0, 1], repeat=n))
         
@@ -138,29 +134,27 @@ def main(args):
         #for lst in lsts:
 
         #new_data_ = [tuple(word_tokenized_question), []]
-
         
-        # #TODO comment out. This is only for getting the object lists
-        # for object_tuple in wordtokenize_idx:
-        #     object_ = object_tuple[0]
-        #     for idx, object__ in enumerate(object_):
-        #         object_[idx] = object__.lower()
-
-        #     if object_ not in object_list:
-        #         object_list.append(object_)
-
-    ipdb.set_trace()
+    # ipdb.set_trace()
+    save_file = os.path.join('gqa_data', args.save_filename + '.pkl')
+    with open(save_file, 'wb') as f:
+        pickle.dump(new_data, f)
     return  
 
 
 if __name__ =="__main__":
     parser = argparse.ArgumentParser(description='LBAagent-project')
-    parser.add_argument('--scenegraph_path', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/gqa_data/')
-    parser.add_argument('--question_path', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/gqa_data/')
+    # parser.add_argument('--question_path', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/gqa_data/')
 
     parser.add_argument('--model_name', type=str, default='bert-base-uncased', choices=['bert-base-uncased'])
     parser.add_argument('--max_length', type=int, default=512)
     parser.add_argument('--bsz', type=int, default=2) 
+
+    parser.add_argument('--object_list', type=str, default='gqa_data/object_list.pkl')
+    parser.add_argument('--question_file_type', type=str, default='train_balanced_questions.json', 
+                                    choices=['train_balanced_questions.json', 'val_balanced_questions.json'])
+
+    parser.add_argument('--save_filename', type=str, default='created_data')
 
     args = parser.parse_args()
     
