@@ -1,9 +1,10 @@
+# Answerability Reasoning in VQA
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Answerability Reasoning in VQA: aa
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+Visual Question Answering (VQA) is the task of answering a question about an image. Evaluating if the posed question is relevant to the input image has gained some attention because of the models' reliability when applied in real-life situations. However, previous approaches have not focused on reasoning about why a question is relevant/irrelevant to the given image. In this project, we develop a method that reasons the answerability of the question given an image. 
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
