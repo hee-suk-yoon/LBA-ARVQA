@@ -19,12 +19,20 @@ To get a local copy up and running follow these simple example steps.
 
 ### 0. Dependencies
 
-create a conda environment from `requirements.txt` file.
+create a conda environment from `enviroment.yaml` file.
 
 
   ```sh
-  conda create --name ENV_NAME --file requirements.txt
+  conda env create --name ENV_NAME --file environment.yaml
   ```
+
+
+After activate the conda environment, download spaCy for english
+  ```sh
+  python -m spacy download en_core_web_sm
+  ```
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
