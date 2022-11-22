@@ -32,6 +32,12 @@ After activate the conda environment, download spaCy for english
   python -m spacy download en_core_web_sm
   ```
 
+Please use the NLTK Downloader to obtain the resource:
+ ```sh
+  python 
+  import nltk
+  nltk.download('punkt')
+  ```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

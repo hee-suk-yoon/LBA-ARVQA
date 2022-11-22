@@ -4,6 +4,7 @@ from nltk.tokenize import word_tokenize
 import ipdb
 import pickle
 import random 
+import copy
 
 
 def load_pickle(path):
@@ -80,6 +81,35 @@ def sg2sentence(sg):
             dict_object_count[object_] += 1
     
     return ". ".join(map(str, generated_sentences))
+
+def customsg2sentence(info, sg, topk):
+    file_ids = ['/'.join(file.split('/')[-4:]) for file in info['idx_to_files']]
+
+    classes = info['ind_to_classes']
+    predicates = info['ind_to_predicates']
+    sg_keys = list(sg.keys())
+    sg2sent_dict = {}
+    for idx, sg_key in enumerate(sg_keys):
+        rel_labels = [predicates[i] for i in sg[sg_key]['rel_labels']]
+        rel_pairs = [[classes[i] for i in sg[sg_key]['rel_pairs'][j]] for j in range(len(sg[sg_key]['rel_pairs']))]
+        # rels = copy.deepcopy(rel_pairs)
+        rels = []
+        for idx_, item in enumerate(rel_pairs):
+            if item[0] == '__background__':
+                rels.append(['there', 'is', item[1]])
+            if '__background__' not in item:
+                rels.append([item[0], rel_labels[idx_], item[1]])
+            
+            if item [1] == '__background__':
+                continue
+
+        rels = rels[:topk]        
+
+        sentences = [' '.join(sent) + '.' for sent in rels]
+        sg2sent_dict[file_ids[idx]] = " ".join(sentences)
+    
+    return sg2sent_dict
+
 
 
 import sng_parser #https://github.com/vacancy/SceneGraphParser
@@ -490,3 +520,13 @@ class Predicate2Bool(torch.nn.Module):
     def forward(self, x):
         logits = self.classifier(x)
         return logits
+
+
+def dummy_AnotherMissOh_QA(question_data):
+    dummy_vids = ['AnotherMissOh01_001_0078']
+    dummy_data_dict = {dummy_vid:[] for dummy_vid in dummy_vids}
+
+    for idx, data in enumerate(question_data):
+        if data['vid'] in dummy_vids:
+            dummy_data_dict[data['vid']].append(data)
+    return dummy_data_dict

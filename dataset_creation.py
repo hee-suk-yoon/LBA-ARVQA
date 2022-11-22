@@ -42,7 +42,7 @@ def main(args):
     #load questions 
     train_questions_list = []
     for i in range(0, 1):
-        questions = utils.load_v_sg(os.path.join('gqa_data', args.question_file_type))
+        questions = utils.load_json(os.path.join('gqa_data', args.question_file_type))
         train_questions_list.append(questions)
 
     with open(args.object_list, 'rb') as f:
