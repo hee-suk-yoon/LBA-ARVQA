@@ -51,59 +51,20 @@ def main(args):
 	classifier_head.load_state_dict(torch.load('checkpoints/classifier9.pt'))
 	classifier_head.to(device)
 
-	train_scenegraphs = utils.load_json(args.train_scenegraph)
-	val_scenegraphs = utils.load_json(args.val_scenegraph)
-
-	#train_questions = utils.load_pickle(args.train_question)
-	#val_questions = utils.load_pickle(args.val_question)
-
-
-	# train_scenegraph_ids = list(train_scenegraphs.keys())
-	# train_sg2sentence = {train_scenegraph_id : utils.sg2sentence(train_scenegraphs[train_scenegraph_id]) for train_scenegraph_id in train_scenegraph_ids} #convert frame scene graph into a natural language sentence
-	# train_sg2sentence_subset = get_subset(train_sg2sentence)
-	# tokenized_train_sg2sentence = utils.sentence2tokenize(args, tokenizer, train_sg2sentence_subset)
-	# new_train_questions = utils.preprocess_question(args, train_questions)
-	# inputs = utils.input_preprocess_V2(args, tokenizer, new_train_questions, tokenized_train_sg2sentence)
-	# ipdb.set_trace()
-	#with open('/mnt/hdd/hsyoon/workspace/LBA-ARVQA/gqa_data/preprocessed_data_val_fixed.pkl', 'rb') as f:
 	with open('gqa_data/preprocessed_data_val_fixed.pkl', 'rb') as f:
 		inputs = pickle.load(f)
 	test_data = inputs
-
-	#train/dev/test split
-	total_batch_size = len(inputs)
-	train_batch_size = int(total_batch_size*0.8)
-	val_batch_size = int((total_batch_size - train_batch_size)/2)
-	test_batch_size = total_batch_size-train_batch_size-val_batch_size
-
-	#train_data = inputs[:train_batch_size]
-	#val_data = inputs[train_batch_size:train_batch_size+val_batch_size]
-	#test_data = inputs[train_batch_size+val_batch_size:]
-
-	#for getting the image id
-	#with open('/mnt/hdd/hsyoon/workspace/OOD/VQRR/imageid_index.pkl', 'rb') as f:
-	#	inputs = pickle.load(f)
-
-	#id_train_data = inputs[:train_batch_size]
-	#id_val_data = inputs[train_batch_size:train_batch_size+val_batch_size]
-	#id_test_data = inputs[train_batch_size+val_batch_size:]
 
 	total_data_size = 0
 	total_correct = 0
 
 	answerability_check_data = {}
 
-	# for batch in test_data:
-	# 	for idx, image_id in enumerate(batch[-1]):
-	# 		if image_id in answerabilty_check_data.keys():
-	# 			question = tokenizer.decode(batch[0][idx]).split('[SEP]')[1]
-
-
-
 	with torch.no_grad(): 
 		model.eval()
 		classifier_head.eval()		
 		for forward_step_val, batch_val in enumerate(test_data):
+			ipdb.set_trace()
 			#ipdb.set_trace()
 			outputs = model(batch_val[0].to(device), attention_mask=batch_val[1].to(device), token_type_ids=batch_val[2].to(device))['last_hidden_state']
 			#get target word features
@@ -128,9 +89,6 @@ def main(args):
 			total_data_size += labels.size()[0]
 			total_correct += train_acc.item()
 
-			# ipdb.set_trace()
-			
-			ipdb.set_trace()
 			for idx, image_id in enumerate(batch_val[-1]):
 				question_idx = torch.nonzero(torch.mul(batch_val[0][idx], batch_val[2][idx]), as_tuple=True)
 				question = batch_val[0][idx][question_idx].tolist()
@@ -179,21 +137,7 @@ def get_subset(dict_):
 
 if __name__ =="__main__":
 	parser = argparse.ArgumentParser(description='LBAagent-project')
-	#parser.add_argument('--v_sg_path', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/gqa_data/train_sceneGraphs.json')
-
-	# parser.add_argument('--train_scenegraph', type=str, default='/mnt/hdd/hsyoon/workspace/LBA-ARVQA/gqa_data/train_sceneGraphs.json')
-	# parser.add_argument('--val_scenegraph', type=str, default='/mnt/hdd/hsyoon/workspace/LBA-ARVQA/gqa_data/val_sceneGraphs.json')
-
-	# parser.add_argument('--train_question', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/train_data_fixed.pkl')
-	# parser.add_argument('--val_question', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/val_data_fixed.pkl')
-	parser.add_argument('--train_scenegraph', type=str, default='gqa_data/train_sceneGraphs.json')
-	parser.add_argument('--val_scenegraph', type=str, default='gqa_data/val_sceneGraphs.json')
-
-	# parser.add_argument('--train_question', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/train_data_fixed.pkl')
-	# parser.add_argument('--val_question', type=str, default='/mnt/hdd/hsyoon/workspace/OOD/VQRR/val_data_fixed.pkl')
 	parser.add_argument('--model_name', type=str, default='bert-base-uncased', choices=['bert-base-uncased'])
-
-
 	args = parser.parse_args()
 	
 	main(args)

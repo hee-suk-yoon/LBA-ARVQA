@@ -1,0 +1,14 @@
+[그래프]
+'concepts' : 노드 index 
+'edge_attribute' : 엣지 index
+'edge_index' : 노드 연결쌍 (ex) [[노드A, 노드B], [노드A, 노드C],...]
+
+[파일]
+GraphSample : 생성한 TextSemanticGraph
+edge : 전체 edge index json 파일
+node : 전체 node index json 파일
+
+
+[저장]
+- AnotherMissOhQA_train_set.json을 사용하여 그래프 생성
+- AnotherMissOhQA_train_set.json의 리스트 성분 별 key 값 중 'qid'를 그래프 이름('train_{qid}.pk'값으로 저장)
