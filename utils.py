@@ -4,6 +4,8 @@ from nltk.tokenize import word_tokenize
 import ipdb
 import pickle
 import random 
+import os
+import glob
 import copy
 
 
@@ -530,3 +532,76 @@ def dummy_AnotherMissOh_QA(question_data):
         if data['vid'] in dummy_vids:
             dummy_data_dict[data['vid']].append(data)
     return dummy_data_dict
+
+def AnotherMissOh_sg(args, sg_fpath, question):
+
+    if question['videoType'] == 'shot':
+        sg_fname = '/'.join(question['vid'].split('_'))
+        
+        try:
+            data_info = load_json(os.path.join(sg_fpath, sg_fname, 'custom_data_info.json'))
+              
+        
+        except:
+            # from 12 ~ there is no custom_info.json so we are using 01/001/0078
+            data_info = load_json(os.path.join(sg_fpath, 'AnotherMissOh01/001/0078', 'custom_data_info.json'))
+       
+        idx2node = data_info['ind_to_classes']             
+        idx2relation = data_info['ind_to_predicates'] 
+
+        sg_data = load_json(os.path.join(sg_fpath, sg_fname, 'custom_prediction.json'))         
+
+        phrases = []
+
+        for k, sg_item in sg_data.items():
+
+            for idx, relation in enumerate(sg_item['rel_pairs']):
+                node1_idx, node2_idx = relation
+
+                node1 = idx2node[sg_item['bbox_labels'][node1_idx]]
+                node2 = idx2node[sg_item['bbox_labels'][node2_idx]]
+
+                node1_score = sg_item['bbox_scores'][node1_idx]
+                node2_score = sg_item['bbox_scores'][node2_idx]
+                relation = idx2relation[sg_item['rel_labels'][idx]]
+                relation_score = sg_item['rel_scores'][idx]
+
+                if (node1_score> args.bbox_threshold) and (node2_score> args.bbox_threshold) and (relation_score> args.rel_threshold):
+                    phrases.append(node1 + ' '+ relation + ' ' + node2)
+
+    
+    elif question['videoType'] == 'scene':
+        sg_fnames = '/'.join(question['vid'].split('_')[:-1])
+        sg_files = glob.glob(os.path.join(sg_fpath, sg_fnames, '*'))
+        phrases = []
+
+        for sg_file in sg_files:
+            try:
+                data_info = load_json(os.path.join(sg_fpath, sg_fname, 'custom_data_info.json'))
+            except:
+                # from 12 ~ there is no custom_info.json so we are using 01/001/0078
+                data_info = load_json(os.path.join(sg_fpath, 'AnotherMissOh01/001/0078', 'custom_data_info.json'))
+        
+            idx2node = data_info['ind_to_classes']             
+            idx2relation = data_info['ind_to_predicates'] 
+            sg_data = load_json(os.path.join(sg_file, 'custom_prediction.json'))
+            for k, sg_item in sg_data.items():
+
+                for idx, relation in enumerate(sg_item['rel_pairs']):
+                    node1_idx, node2_idx = relation
+
+                    node1 = idx2node[sg_item['bbox_labels'][node1_idx]]
+                    node2 = idx2node[sg_item['bbox_labels'][node2_idx]]
+
+                    node1_score = sg_item['bbox_scores'][node1_idx]
+                    node2_score = sg_item['bbox_scores'][node2_idx]
+                    relation = idx2relation[sg_item['rel_labels'][idx]]
+                    relation_score = sg_item['rel_scores'][idx]
+
+                    if (node1_score> args.bbox_threshold) and (node2_score> args.bbox_threshold) and (relation_score> args.rel_threshold):
+                        phrases.append(node1 + ' '+ relation + ' ' + node2)
+
+    else:
+        ipdb.set_trace()
+
+    return phrases
