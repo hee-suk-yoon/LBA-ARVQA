@@ -7,7 +7,14 @@ import random
 import os
 import glob
 import copy
+from dataclasses import dataclass
+from torch.utils.data import DataLoader
+import spacy
 
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.tag import pos_tag
+from random import choice
 
 def load_pickle(path):
     with open(path, 'rb') as f:
@@ -605,3 +612,74 @@ def AnotherMissOh_sg(args, sg_fpath, question):
         ipdb.set_trace()
 
     return phrases
+
+
+
+def get_dataset_fn(args, dataset_type, tokenizer, split):
+    if dataset_type == 'coqa':
+        return get_coqa_dataset(args, tokenizer, split)
+    return
+
+def get_coqa_dataset(args, tokenizer, split):
+    from datasets import load_dataset
+    dataset = load_dataset("coqa")
+    
+    # Download necessary NLTK data
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger')
+    @dataclass
+    class DataCollator_custom:
+        def __init__(self, tokenizer):
+            self.tokenizer = tokenizer
+            self.nlp = spacy.load('en_core_web_lg')
+        def __call__(self, pre_batch):
+            Instruction = 'Given the story, answer the question.\n'
+            texts_clean = []
+            texts_aug = []
+            for sample in pre_batch:
+                question_clean = sample['questions'][0]
+                question_aug = make_unanswerable(question_clean, ['zebra'])
+                input_text_clean = Instruction+ 'story: ' + sample['story'] + '\nquestion: ' + question_clean + '\nanswer:'
+                input_text_aug = Instruction+ 'story: ' + sample['story'] + '\nquestion: ' + question_aug + '\nanswer:'
+                texts_clean.append(input_text_clean)
+                texts_aug.append(input_text_aug)
+            #stories = [Instruction+ 'story: ' + sample['story'] + '\nquestion: ' + sample['question'][0] + '\nanswer: ' for sample in pre_batch]
+
+            data_clean = self.tokenizer(texts_clean, return_tensors="pt")
+            data_augmented = self.tokenizer(texts_aug, return_tensors="pt")
+            #------------------------
+            return data_clean, data_augmented
+
+    if split == 'validation':
+        dataloader = DataLoader(dataset['validation'], batch_size=args.bsz, shuffle=False, num_workers=0, collate_fn=DataCollator_custom(tokenizer))
+    return dataloader
+
+def make_unanswerable(question, replacement_list):
+    # Tokenize the question
+    tokens = word_tokenize(question)
+    
+    # POS tagging
+    tagged = pos_tag(tokens)
+    
+    # Separate nouns into proper nouns and common nouns
+    proper_nouns = [word for word, pos in tagged if pos == "NNP"]
+    common_nouns = [word for word, pos in tagged if pos == "NN"]
+    
+    # Prioritize replacing a proper noun. If none are found, consider replacing a common noun.
+    if proper_nouns:
+        noun_to_replace = choice(proper_nouns)
+    elif common_nouns:
+        noun_to_replace = choice(common_nouns)
+    else:
+        return question
+    
+    # Choose a replacement noun
+    replacement = choice(replacement_list)
+    
+    # Replace the noun in the tokens list
+    modified_tokens = [replacement if word == noun_to_replace else word for word in tokens]
+    
+    # Construct the modified question
+    modified_question = ' '.join(modified_tokens)
+    
+    return modified_question
