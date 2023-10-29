@@ -156,10 +156,10 @@ def object_extract(question):
 
 from transformers import BertTokenizer, BertModel
 
-def get_model(model_name):
-    if model_name == 'bert-base-uncased':
-        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-        model = BertModel.from_pretrained("bert-base-uncased")
+def get_model(args):
+    # if model_name == 'bert-base-uncased':
+    tokenizer = BertTokenizer.from_pretrained(args.model_name)
+    model = BertModel.from_pretrained(args.model_name, max_length=args.max_length)
 
     return model, tokenizer
 

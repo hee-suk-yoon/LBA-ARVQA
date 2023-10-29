@@ -41,7 +41,7 @@ def build_parser():
 	parser = argparse.ArgumentParser(description='object extraction from dramaQA data annotation')
 
 	parser.add_argument('--seed', type=int, default=42)
-	parser.add_argument('--bsz', type=int, default=24)
+	parser.add_argument('--bsz', type=int, default=32)
 	parser.add_argument('--lr_PLM', type=float, default=1e-6)
 	parser.add_argument('--lr_classifier', type=float, default=1e-3)
 	parser.add_argument('--weight_decay', type=float, default=0.01)
@@ -72,6 +72,7 @@ def build_parser():
 	parser.add_argument('--world_size', default=1, type=int,
 						help='number of distributed processes')
 	parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')	   
+	parser.add_argument('--fp16', action='store_true')
 
 	return parser
 
@@ -117,7 +118,7 @@ def train(args, model, classifier_head, optimizer_PLM, optimizer_classifier, tra
 
 def eval(args, model, classifier_head, val_data):
 	model.eval()
-	classifier_head.head()
+	classifier_head.eval()
 
 	total_loss = 0.
 	total_acc = 0.
@@ -194,7 +195,7 @@ def main(args):
 # ============================================= prepare module ======================================================
 	if (utils_sys.is_main_process() or not dist.is_initialized()):
 		print('loading model...')
-		model, tokenizer = utils.get_model(args.model_name)
+		model, tokenizer = utils.get_model(args)
 		model.to(args.device)
 
 		classifier_head = utils.Predicate2Bool(model.config.hidden_size)
@@ -220,7 +221,7 @@ def main(args):
 		print('loading data...')
 	
 	if args.do_train:
-
+		'''
 		train_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_train_set.json'))
 		val_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_val_set.json'))
 		sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
@@ -256,6 +257,14 @@ def main(args):
 		inputs = utils.input_preprocess_V2(args, tokenizer, new_val_questions, tokenized_val_sg2sentence)
 		val_data = inputs
 
+		with open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/train.pkl', 'wb') as f:
+			pickle.dump(train_data, f)
+
+		with open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/valid.pkl', 'wb') as f:
+			pickle.dump(val_data, f)
+		'''
+		train_data = pickle.load(open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/train.pkl','rb'))
+		val_data = pickle.load(open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/valid.pkl','rb'))
 
 
 # ============================================= training code ======================================================
