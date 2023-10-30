@@ -312,9 +312,13 @@ def main(args):
 						os.makedirs(ckpt_dir, exist_ok=True)
 
 						model_fname = os.path.join(ckpt_dir, args.run_name+'_best_loss.pt')
+						classifier_fname = os.path.join(ckpt_dir, args.run_name+'_classifier_best_loss.pt')
 
 						with open(model_fname, 'wb') as f:
 							torch.save(model.state_dict(), f)
+							sys.stdout.flush()
+						with open(classifier_fname, 'wb') as f:
+							torch.save(classifier_head.state_dict(), f)
 							sys.stdout.flush()
 					else:
 						print("model not saved for epoch {}".format(epoch+1))
@@ -332,9 +336,13 @@ def main(args):
 						os.makedirs(ckpt_dir, exist_ok=True)
 
 						model_fname = os.path.join(ckpt_dir, args.run_name+'_best_acc.pt')
+						classifier_fname = os.path.join(ckpt_dir, args.run_name+'_classifier__best_acc.pt')
 
 						with open(model_fname, 'wb') as f:
 							torch.save(model.state_dict(), f)
+							sys.stdout.flush()
+						with open(classifier_fname, 'wb') as f:
+							torch.save(classifier_head.state_dict(), f)
 							sys.stdout.flush()
 					else:
 						print("model not saved for epoch {}".format(epoch+1))
