@@ -77,6 +77,15 @@ def build_parser():
 	parser.add_argument('--model_ckpt', type=str)
 	parser.add_argument('--classifier_head_ckpt', type=str)
 
+	parser.add_argument('--do_preprocess', action='store_true')
+	
+	parser.add_argument('--preprocessed_train_data', type=str, 
+					 	help='if you have done preprocess and want to use that data, you should input the data path')
+	parser.add_argument('--preprocessed_valid_data', type=str, 
+					 	help='if you have done preprocess and want to use that data, you should input the data path')
+	parser.add_argument('--preprocessed_test_data', type=str, 
+					 	help='if you have done preprocess and want to use that data, you should input the data path')
+
 	return parser
 
 def train(args, model, classifier_head, optimizer_PLM, optimizer_classifier, train_data, global_step):
@@ -208,10 +217,10 @@ def main(args):
 			if not (args.model_ckpt or args.classifier_head_ckpt):
 				raise AssertionError("checkpoints are not provided!")
 				
-			model.load_state_dict(torch.load('/mnt/hsyoon/workspace/LBA-ARVQA/saves/ckpt/2023-10-30_15:13:30_best_loss.pt'))
+			model.load_state_dict(torch.load(args.model_ckpt))
 			model.to(args.device)
 
-			classifier_head.load_state_dict(torch.load('/mnt/hsyoon/workspace/LBA-ARVQA/saves/ckpt/2023-10-30_15:13:30_classifier_best_loss.pt'))
+			classifier_head.load_state_dict(torch.load(args.classifier_head_ckpt))
 			classifier_head.to(args.device)
 
 
@@ -236,50 +245,47 @@ def main(args):
 		print('loading data...')
 	
 	if args.do_train:
-		'''
-		train_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_train_set.json'))
-		val_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_val_set.json'))
-		sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
 		
-		train_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_train_created_data.pkl'))
-		val_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_val_created_data.pkl'))
-		
-		train_sg2sentence = {}
-		for question in tqdm(train_questions):
-			train_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
-			train_sg2sentence[question['qid']] = ". ".join(train_sg)
-		
-		# for debugging
-		# train_sg2sentence_subset = utils_sys.get_subset(train_sg2sentence)
-		# tokenized_train_sg2sentence = utils.sentence2tokenize(args, tokenizer, train_sg2sentence_subset)
+		if args.do_preprocess:
+			train_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_train_set.json'))
+			val_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_val_set.json'))
+			sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
+			
+			train_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_train_created_data.pkl'))
+			val_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_val_created_data.pkl'))
+			
+			train_sg2sentence = {}
+			for question in tqdm(train_questions):
+				train_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
+				train_sg2sentence[question['qid']] = ". ".join(train_sg)
+			
+			# for debugging
+			# train_sg2sentence_subset = utils_sys.get_subset(train_sg2sentence)
+			# tokenized_train_sg2sentence = utils.sentence2tokenize(args, tokenizer, train_sg2sentence_subset)
 
-		tokenized_train_sg2sentence = utils.sentence2tokenize(args, tokenizer, train_sg2sentence)
-		new_train_questions = utils.preprocess_question(args, train_answerability_data)
-		inputs = utils.input_preprocess_V2(args, tokenizer, new_train_questions, tokenized_train_sg2sentence)
-		train_data = inputs
+			tokenized_train_sg2sentence = utils.sentence2tokenize(args, tokenizer, train_sg2sentence)
+			new_train_questions = utils.preprocess_question(args, train_answerability_data)
+			inputs = utils.input_preprocess_V2(args, tokenizer, new_train_questions, tokenized_train_sg2sentence)
+			train_data = inputs
 
-		val_sg2sentence = {}
-		for question in tqdm(val_questions):
-			train_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
-			val_sg2sentence[question['qid']] = ". ".join(train_sg)
-		
-		# for debugging
-		# val_sg2sentence_subset = utils_sys.get_subset(val_sg2sentence)
-		# tokenized_val_sg2sentence = utils.sentence2tokenize(args, tokenizer, val_sg2sentence_subset)
+			val_sg2sentence = {}
+			for question in tqdm(val_questions):
+				train_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
+				val_sg2sentence[question['qid']] = ". ".join(train_sg)
+			
+			# for debugging
+			# val_sg2sentence_subset = utils_sys.get_subset(val_sg2sentence)
+			# tokenized_val_sg2sentence = utils.sentence2tokenize(args, tokenizer, val_sg2sentence_subset)
 
-		tokenized_val_sg2sentence = utils.sentence2tokenize(args, tokenizer, val_sg2sentence)
-		new_val_questions = utils.preprocess_question(args, val_answerability_data)
-		inputs = utils.input_preprocess_V2(args, tokenizer, new_val_questions, tokenized_val_sg2sentence)
-		val_data = inputs
-
-		with open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/train.pkl', 'wb') as f:
-			pickle.dump(train_data, f)
-
-		with open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/valid.pkl', 'wb') as f:
-			pickle.dump(val_data, f)
-		'''
-		train_data = pickle.load(open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/train.pkl','rb'))
-		val_data = pickle.load(open('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/valid.pkl','rb'))
+			tokenized_val_sg2sentence = utils.sentence2tokenize(args, tokenizer, val_sg2sentence)
+			new_val_questions = utils.preprocess_question(args, val_answerability_data)
+			inputs = utils.input_preprocess_V2(args, tokenizer, new_val_questions, tokenized_val_sg2sentence)
+			val_data = inputs
+		else:
+			if not (args.preprocessed_train_data or args.preprocessed_valid_data):
+				raise AssertionError("preprocessed data are not provided!")
+			train_data = utils_sys.read_pkl(args.preprocessed_train_data)
+			val_data = utils_sys.read_pkl(args.preprocessed_valid_data)
 
 
 # ============================================= training code ======================================================
@@ -370,21 +376,25 @@ def main(args):
 # ============================================= test code ======================================================
 	if args.do_test:
 		
+		if args.do_preprocess:
+			test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_test_set.json'))
+			sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
 
-		test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_test_set.json'))
-		sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
+			test_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_test_created_data.pkl'))
 
-		test_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_test_created_data.pkl'))
+			test_sg2sentence = {}
+			for question in tqdm(test_questions):
+				test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
+				test_sg2sentence[question['qid']] = ". ".join(test_sg)
 
-		test_sg2sentence = {}
-		for question in tqdm(test_questions):
-			test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
-			test_sg2sentence[question['qid']] = ". ".join(test_sg)
-
-		tokenized_test_sg2sentence = utils.sentence2tokenize(args, tokenizer, test_sg2sentence)
-		new_test_questions = utils.preprocess_question(args, test_answerability_data)
-		inputs = utils.input_preprocess_V2(args, tokenizer, new_test_questions, tokenized_test_sg2sentence)
-		test_data = inputs
+			tokenized_test_sg2sentence = utils.sentence2tokenize(args, tokenizer, test_sg2sentence)
+			new_test_questions = utils.preprocess_question(args, test_answerability_data)
+			inputs = utils.input_preprocess_V2(args, tokenizer, new_test_questions, tokenized_test_sg2sentence)
+			test_data = inputs
+		else:
+			if not args.preprocessed_test_data:
+				raise AssertionError("preprocessed data are not provided!")
+			test_data = utils_sys.read_pkl(args.preprocessed_test_data)
 
 		with torch.no_grad():
 			eval_loss, eval_acc = eval(args, model, classifier_head, test_data)
