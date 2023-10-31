@@ -91,7 +91,59 @@ python AnotherMissOh_preprocess_creation.py --save_name [SAVE_FILE_NAME]
 ### 5. Training
 For now, we only have single GPU training:
 ```sh
-CUDA_VISIBLE_DEVICES=0 python main.py --do_train --save_criterion loss
+CUDA_VISIBLE_DEVICES=0 python AnotherMissOh_main.py --do_train --save_criterion loss
 ```
 
 If you have preprocessed data, you need to add `--do_preprocess` and preprocess dataset path (i.e., `--preprocessed_train_data`, `--preprocessed_valid_data`)
+
+### 6. Inference
+For the inference only argument needs to be changed:
+```sh
+CUDA_VISIBLE_DEVICES=0 python AnotherMissOh_main.py --do_test
+```
+If you have preprocessed data, you need to add `--do_preprocess` and preprocess dataset path (i.e., `--preprocessed_test_data`)
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+LICENSE
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- CONTACT -->
+## Contact
+
+Hee Suk Yoon - hskyoon@kaist.ac.kr
+Eunseop Yoon - esyoon97@kaist.ac.kr
+
+Project Link: [https://github.com/tomyoon2/LBA-ARVQA](https://github.com/tomyoon2/LBA-ARVQA)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+This work was supported by Institute of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea government(MSIT) (No. 2022-0-00951, Development of Uncertainty-Aware Agents Learning by Asking Questions)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
