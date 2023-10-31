@@ -1,9 +1,9 @@
-# Answerability Reasoning in VQA (ver2)
+# Answerability Reasoning in Question Answering for Video (ver2)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Visual Question Answering (VQA) is the task of answering a question about an image. Evaluating if the posed question is relevant to the input image has gained some attention in the past because of its significance concerning the models' reliability when applied in real-life situations. However, previous approaches have yet to focus on reasoning about why a question is relevant/irrelevant to the given image. In this project, we develop a method that reasons the answerability of the question given an image. 
+Visual Question Answering (VQA) is the task of answering a question about a visual input. Evaluating if the posed question is relevant to the input image (video) has gained some attention in the past because of its significance concerning the models' reliability when applied in real-life situations. However, previous approaches have yet to focus on reasoning about why a question is relevant/irrelevant to the given image (video). In this project, we develop a method that reasons the answerability of the question given an image (video). 
 
 <!-- Usage -->
 ## Usage
@@ -37,17 +37,15 @@ Please use the NLTK Downloader to obtain the resource:
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### 1. Downlaod Dataset
-we are using DramaQA dataset from this year for answerability reasoning in Video Question Answering
+We are using DramaQA dataset from this year for answerability reasoning in Video Question Answering
 
-Download scene graphs raw data from: https://nlp.stanford.edu/data/gqa/sceneGraphs.zip
+Download questions raw data from: https://dramaqa.snu.ac.kr/ 
 
-Download questions raw data from: https://nlp.stanford.edu/data/gqa/questions1.2.zip
+Generate scene graph following: https://github.com/youngyoung1021/cross-graph-attention 
 
-Put sceneGraph files: `train_sceneGraphs.json` and `val_sceneGraphs.json` into `gqa_data/`
 
-Put questions json files: `train_balanced_questions.json` and `val_balanced_questions.json` into `gqa_data/`
 
-After this step, the data file structure should look like this:
+For the easier running, we recommend the data file structure looks like this:
 
 ```sh
 LBA-ARVQA
@@ -65,12 +63,8 @@ LBA-ARVQA
                     .
                     .
 
-
-      train_sceneGraphs.json
-      val_sceneGraphs.json
-      train_balanced_questions.json
-      val_balanced_questions.json
-   object_list_extraction.py
-   dataset_creation.py
-   main.py
+   AnotherMissOh_object_list_extraction.py
+   AnotherMissOh_dataset_creation.py
+   AnotherMissOh_preprocess_creation.py (optional)
+   AnotherMissOh_main.py
 ```
