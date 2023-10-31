@@ -68,3 +68,30 @@ LBA-ARVQA
    AnotherMissOh_preprocess_creation.py (optional)
    AnotherMissOh_main.py
 ```
+
+### 2. Object List Extracting from Questions
+Following commands should run without error:
+```sh
+python AnotherMissOh_object_list_extraction.py
+```
+
+### 3. Dataset augmentation to train the reasoning model
+Following commands should run without error:
+```sh
+python AnotherMissOh_dataset_creation.py
+```
+
+### 4. Preprocess the train/val/test dataset for fast experiment (optional)
+When you run the main code, it contains the data preprocessing procedure. Since it takes quite few times, we provide the preprocess code to save the preprocessed data for further uses.  
+Following commands should run without error:
+```sh
+python AnotherMissOh_preprocess_creation.py --save_name [SAVE_FILE_NAME]
+```
+
+### 5. Training
+For now, we only have single GPU training:
+```sh
+CUDA_VISIBLE_DEVICES=0 python main.py --do_train --save_criterion loss
+```
+
+If you have preprocessed data, you need to add `--do_preprocess` and preprocess dataset path (i.e., `--preprocessed_train_data`, `--preprocessed_valid_data`)

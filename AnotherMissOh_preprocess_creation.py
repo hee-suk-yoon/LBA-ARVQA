@@ -43,7 +43,8 @@ def build_parser():
 	parser.add_argument('--output_dir', type=str, default='./saves')
 	parser.add_argument('--dataset_dir', type=str, default='./dataset')
 
-	parser.add_argument('--save_name' type=str, help='file name or detailed path for the processed file (e.g., preprocessed_data/train.pkl))
+	parser.add_argument('--save_name' type=str, required=True, 
+					 	help='file name or detailed path for the processed file (e.g., preprocessed_data/train.pkl))
 	return build_parser
 
 def main(args):
