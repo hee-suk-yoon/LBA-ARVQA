@@ -379,6 +379,98 @@ def input_preprocess_V2(args, tokenizer, questions, frame_sg2sentence):
     else:
         return data
 
+def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
+    inputs_ids = []
+    inputs_attn = []
+    inputs_type_ids = []
+    output_idx_all = []
+    labels_all = []
+
+    frame_question_pair = questions
+    #frame_sentence_split = word_tokenize(frame_sentence)
+    question_split = frame_question_pair[0]
+    predicates = frame_question_pair[1]
+
+    if predicates == []:
+        raise ValueError("there is no object in the given sentence")
+    #ipdb.set_trace()
+    output_idx = {str(el[0]):[] for el in predicates}
+    #output_idx = [[] for el in predicates]
+    #if len(predicates) != len(output_idx.keys()): #두개의 object가 같을때 있을수 있음.
+    #    continue
+
+    #label 
+    # label_ = frame_question_pair[2]
+    #ipdb.set_trace()
+    #tokenize and tensorize data
+    c_ids = [torch.tensor([tokenizer.encode(tokenizer.cls_token, add_special_tokens=False)])] #cls token aka sos token, returns a list with index # 
+    target_ids = [0]
+    attention_m = [1]
+    idx_master = 1
+
+    word_ids = sg2sentence
+    target_ids.extend([0]*len(word_ids))
+    attention_m.extend([1]*len(word_ids))
+    c_ids.extend(word_ids)
+    idx_master += len(word_ids)
+    # for idx, word in enumerate(frame_sentence_split):
+    #     word_ids = [torch.tensor([[x]]) for x in tokenizer.encode(word, add_special_tokens=False)]
+    #     target_ids.extend([0]*len(word_ids))
+    #     attention_m.extend([1]*len(word_ids))
+    #     c_ids.extend(word_ids)
+    #     idx_master += len(word_ids)
+
+
+    c_ids.append(torch.tensor([tokenizer.encode(tokenizer.sep_token, add_special_tokens=False)])) #aka eos token 
+    target_ids.extend([0])
+    attention_m.extend([1])
+    idx_master += 1
+    
+    active_pred_idx = -1 
+    active_pred = False
+    for idx, word in enumerate(question_split):
+        #check if idx falls into any span 
+        for pred_idx, predicate in enumerate(predicates):
+            if predicate[1][0] <= idx and idx < predicate[1][1]:
+                active_pred_idx = pred_idx 
+                active_pred = True
+                break
+            else:
+                active_pred_idx = -1
+                active_pred = False
+        
+        word_ids = [torch.tensor([[x]]) for x in tokenizer.encode(word, add_special_tokens=False)]
+        target_ids.extend([1]*len(word_ids))
+        attention_m.extend([1]*len(word_ids))
+        c_ids.extend(word_ids)
+
+
+        if active_pred:
+            output_idx[str(predicates[active_pred_idx][0])].extend(list(range(idx_master,idx_master+len(word_ids))))
+
+        idx_master += len(word_ids)
+    
+    c_ids.append(torch.tensor([tokenizer.encode(tokenizer.sep_token, add_special_tokens=False)])) #aka eos token 
+    target_ids.extend([1])
+    attention_m.extend([1])        
+    if output_idx[list(output_idx.keys())[0]] == []:
+        ipdb.set_trace()
+
+    #padding
+    if len(attention_m) >= args.max_length:
+        ipdb.set_trace()
+    else:
+        c_ids, attention_m, target_ids = normalize_length(c_ids, attention_m, target_ids, args.max_length, pad_id=tokenizer.encode(tokenizer.pad_token, add_special_tokens=False)[0])
+
+        inputs_ids.append(torch.cat(c_ids, dim=-1)) 
+        inputs_attn.append(torch.tensor(attention_m).unsqueeze(dim=0)) 
+        inputs_type_ids.append(torch.tensor(target_ids).unsqueeze(dim=0)) 
+        output_idx_all.append(output_idx)
+        # labels_all.append(label_)
+
+    data = list(zip(inputs_ids, inputs_attn, inputs_type_ids, output_idx_all,labels_all))
+    return data
+
 def sentence2tokenize(args, tokenizer, train_sg2sentence):
     tokenized_train_sg2sentence = {}
     total_length = len(list(train_sg2sentence.keys()))
