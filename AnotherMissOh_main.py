@@ -67,12 +67,15 @@ def build_parser():
 	parser.add_argument('--model_name', type=str, default='bert-base-uncased', choices=['bert-base-uncased'])
 	parser.add_argument('--max_length', type=int, default=512)
 
-	parser.add_argument('--train_question', type=str, default='AnotherMissOh_train_created_data.pkl')
+	# parser.add_argument('--train_question', type=str, default='AnotherMissOh_train_created_data.pkl')
 
 	parser.add_argument('--world_size', default=1, type=int,
 						help='number of distributed processes')
 	parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')	   
 	parser.add_argument('--fp16', action='store_true')
+
+	parser.add_argument('--model_ckpt', type=str)
+	parser.add_argument('--classifier_head_ckpt', type=str)
 
 	return parser
 
@@ -201,19 +204,31 @@ def main(args):
 		classifier_head = utils.Predicate2Bool(model.config.hidden_size)
 		classifier_head.to(args.device)
 
-		
-		#optimizer = torch.optim.AdamW(model.parameters(), lr = lr, weight_decay = beta)
-		no_decay = ["bias", "LayerNorm.weight"]
-		optimizer_grouped_parameters = [
-			{
-				"params": [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)],
-				"weight_decay": args.weight_decay,
-			},
-			{"params": [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], "weight_decay": 0.0},
-		]
-		
-		optimizer_PLM = optim.AdamW(optimizer_grouped_parameters, lr=args.lr_PLM)
-		optimizer_classifier = optim.AdamW(classifier_head.parameters(), lr=args.lr_classifier)
+		if args.do_test:
+			if not (args.model_ckpt or args.classifier_head_ckpt):
+				raise AssertionError("checkpoints are not provided!")
+				
+			model.load_state_dict(torch.load('/mnt/hsyoon/workspace/LBA-ARVQA/saves/ckpt/2023-10-30_15:13:30_best_loss.pt'))
+			model.to(args.device)
+
+			classifier_head.load_state_dict(torch.load('/mnt/hsyoon/workspace/LBA-ARVQA/saves/ckpt/2023-10-30_15:13:30_classifier_best_loss.pt'))
+			classifier_head.to(args.device)
+
+
+		if args.do_train:
+			#optimizer = torch.optim.AdamW(model.parameters(), lr = lr, weight_decay = beta)
+			no_decay = ["bias", "LayerNorm.weight"]
+			optimizer_grouped_parameters = [
+				{
+					"params": [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)],
+					"weight_decay": args.weight_decay,
+				},
+				{"params": [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], "weight_decay": 0.0},
+			]
+			
+			optimizer_PLM = optim.AdamW(optimizer_grouped_parameters, lr=args.lr_PLM)
+			optimizer_classifier = optim.AdamW(classifier_head.parameters(), lr=args.lr_classifier)
+
 	if (utils_sys.is_main_process() or not dist.is_initialized()):
 		print('loading model finished')
 # ============================================= loading dataset  ======================================================
@@ -270,6 +285,7 @@ def main(args):
 # ============================================= training code ======================================================
 	if args.do_train:
 		best_loss = None
+		best_acc = None
 
 		global_step = 0
 		args.total_step = len(train_data)*args.epochs
@@ -350,7 +366,29 @@ def main(args):
 
 			if args.distributed:
 				torch.distributed.barrier()	
-				
+
+# ============================================= test code ======================================================
+	if args.do_test:
+		
+
+		test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_test_set.json'))
+		sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
+
+		test_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_test_created_data.pkl'))
+
+		test_sg2sentence = {}
+		for question in tqdm(test_questions):
+			test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
+			test_sg2sentence[question['qid']] = ". ".join(test_sg)
+
+		tokenized_test_sg2sentence = utils.sentence2tokenize(args, tokenizer, test_sg2sentence)
+		new_test_questions = utils.preprocess_question(args, test_answerability_data)
+		inputs = utils.input_preprocess_V2(args, tokenizer, new_test_questions, tokenized_test_sg2sentence)
+		test_data = inputs
+
+		with torch.no_grad():
+			eval_loss, eval_acc = eval(args, model, classifier_head, test_data)
+		print("test loss : {}	  test acc : {}".format(eval_loss, eval_acc))
 	return
 
 if __name__ == '__main__':
