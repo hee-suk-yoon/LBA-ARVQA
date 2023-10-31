@@ -127,7 +127,6 @@ def main(args):
 			new_data[question_dict['qid']].append(new_data_instance)
 			# ipdb.set_trace()
 	
-	ipdb.set_trace()
 	save_fname = 'AnotherMissOh_' + args.data_name + '_created_data.pkl'
 	utils_sys.save_pkl(new_data, os.path.join(args.output_dir, save_fname))
 
