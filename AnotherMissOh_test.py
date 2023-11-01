@@ -43,7 +43,7 @@ def process_raw_sentence(exception_object=[], sentence='This is an example.', ob
 	# for object_item in extracted_objects:
 		exception_list = [1 if exception in object_ else 0 for exception in exception_object]
 		if not sum(exception_list) > 0:
-			extracted_objects_.append([object_, [object_idx1, object_idx2]])
+			extracted_objects_.append([[object_], [object_idx1, object_idx2]])
 
 	if len(extracted_objects_) == 0:
 		ipdb.set_trace()
@@ -91,7 +91,6 @@ def process_raw_sentence(exception_object=[], sentence='This is an example.', ob
 									new_wordtokenize_idx[idx2][1][0] -= length_diff #update start idx
 									new_wordtokenize_idx[idx2][1][1] -= length_diff #update end idx
 						break
-			
 			new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx,list(lst)]
 			new_data.append(new_data_instance)
 		return new_data
