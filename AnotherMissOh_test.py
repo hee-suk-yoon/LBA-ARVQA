@@ -31,6 +31,7 @@ def process_raw_sentence(exception_object=[], sentence='This is an example.', ob
 	question = sentence
 
 	extracted_objects_ = []
+	new_data=[]
 
 	word_tokenized_question = word_tokenize(question)
 	try:
@@ -55,12 +56,11 @@ def process_raw_sentence(exception_object=[], sentence='This is an example.', ob
 
 		# if question_dict['qid'] not in list(new_data.keys()):
 		# 	new_data[question_dict['qid']] = []
-		
 		for lst in lsts: #go through each augmentation case
 			#making the 'red' list (refer to reserach notebook for what 'red' list is)
 			new_word_tokenized_question = copy.deepcopy(word_tokenized_question)
 			new_wordtokenize_idx = copy.deepcopy(extracted_objects_)
-			ipdb.set_trace()
+
 			for idx, word_bool in enumerate(lst): 
 				#if word_bool is true (that is no augmentation)
 				if word_bool:
@@ -75,7 +75,6 @@ def process_raw_sentence(exception_object=[], sentence='This is an example.', ob
 
 					while True: #TODO for the TODO is the bottom of filtering 
 						new_sampled_object_ = random.choice(object_list)
-						
 						#TODO later we need to develop how to make sure that the new sampled object is not same as the original.
 						new_word_tokenized_question[object_wordtokenize_idx_start:object_wordtokenize_idx_end] = new_sampled_object_
 
@@ -94,7 +93,8 @@ def process_raw_sentence(exception_object=[], sentence='This is an example.', ob
 						break
 			
 			new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx,list(lst)]
-		return new_data_instance
+			new_data.append(new_data_instance)
+		return new_data
 
 def inference_demo(model, classifier_head, inputs):  
 	outputs = model(inputs[0].to(device), attention_mask=inputs[1].to(device), token_type_ids=inputs[2].to(device))['last_hidden_state']
@@ -124,27 +124,30 @@ def main(args):
 	test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_test_set.json'))
 	sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
 
-	test_answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_test_created_data.pkl'))
-
+	# for debug, we are currently input scene graph from AnotherMissOh. Maybe the caption of the video can be inputed instead
 	test_sg2sentence = {}
 	for question in tqdm(test_questions[0:2]):
 		test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
 		test_sg2sentence[question['qid']] = ". ".join(test_sg)
 
+	# tokenize the sentenced scene graph
 	tokenized_sg2sentence = utils.sentence2tokenize(args, tokenizer, test_sg2sentence)
-	ipdb.set_trace()
-	# new_test_questions = utils.preprocess_question(args, test_answerability_data)
-	# inputs = utils.input_preprocess_V2(args, tokenizer, new_test_questions, tokenized_test_sg2sentence)
-	# test_data = inputs
-	data_instance = process_raw_sentence()
+
+	# you can input user given sentence like "this is an exmaple"
+	# if you input generate_unanswerable_que=True, it will generate unanwerable by folloing the object list. 
+	# for debug, we utilize AnotherMissOh obejct list as a dummy
+	object_list=utils_sys.read_pkl('/mnt/hsyoon/workspace/LBA-ARVQA/saves/custom_dataset/AnotherMissOhQA_object_list.pkl')
+
+	# data_instance = process_raw_sentence(exception_object=[], sentence='This is an example.', object_list=None, generate_unanswerable_que=False) 
+	data_instance = process_raw_sentence(exception_object=[], sentence='This is an example.', object_list=object_list, generate_unanswerable_que=True) 
+	
 	inputs = utils.input_preprocess_demo(args, tokenizer, data_instance, tokenized_sg2sentence[13041])
-	ipdb.set_trace()
-	test_data = utils_sys.read_pkl('/mnt/hsyoon/workspace/LBA-ARVQA/saves/preprocessed_data/valid.pkl')
 	with torch.no_grad():
-		for idx, item in enumerate(test_data):
-			label = (item[-2], item[-1].bool())
+		for idx, item in enumerate(inputs):
+			# label = [[batch[-2], batch[-1].bool()] for batch in item ]
 			prediction = inference_demo(model, classifier_head, item)
 			ipdb.set_trace()
+			
 	return
 if __name__ =="__main__":
 	parser = argparse.ArgumentParser(description='LBAagent-project')
