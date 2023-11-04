@@ -35,6 +35,10 @@ def build_parser():
 	parser = argparse.ArgumentParser(description='data preprocseeing for train and test (optional)')
 
 	parser.add_argument('--seed', type=int, default=42)
+	parser.add_argument('--bsz', type=int, default=32)
+
+	parser.add_argument('--model_name', type=str, default='bert-base-uncased', choices=['bert-base-uncased'])
+	parser.add_argument('--max_length', type=int, default=512)
 
 	parser.add_argument('--bbox_threshold', type=float, default=0.3)
 	parser.add_argument('--rel_threshold', type=float, default=0.7)
@@ -43,9 +47,9 @@ def build_parser():
 	parser.add_argument('--output_dir', type=str, default='./saves')
 	parser.add_argument('--dataset_dir', type=str, default='./dataset')
 
-	parser.add_argument('--save_name' type=str, required=True, 
-					 	help='file name or detailed path for the processed file (e.g., preprocessed_data/train.pkl))
-	return build_parser
+	parser.add_argument('--save_name', type=str, required=True, 
+					 	help='file name or detailed path for the processed file (e.g., preprocessed_data/train.pkl)')
+	return parser
 
 def main(args):
 	_, tokenizer = utils.get_model(args)
@@ -63,7 +67,7 @@ def main(args):
 
 	tokenized_sg2sentence = utils.sentence2tokenize(args, tokenizer, sg2sentence)
 	new_train_questions = utils.preprocess_question(args, answerability_data)
-	inputs = utils.input_preprocess_V2(args, tokenizer, new_train_questions, tokenized_sg2sentence)
+	inputs = utils.input_preprocess_V3(args, tokenizer, new_train_questions, tokenized_sg2sentence)
 
 	save_fname = os.path.join(args.output_dir, args.save_name)
 	with open(save_fname, 'wb') as f:

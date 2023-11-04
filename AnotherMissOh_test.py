@@ -27,72 +27,77 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cpu = torch.device("cpu")
 
 
-def process_raw_sentence(exception_object=[], sentence='This is an example.', object_list=None, generate_unanswerable_que=False):
-	question = sentence
-
-	extracted_objects_ = []
+def process_raw_sentence(exception_object=[], sentences=['This is an example.'], object_list=None, generate_unanswerable_que=False):
 	new_data=[]
-
-	word_tokenized_question = word_tokenize(question)
-	try:
-		extracted_objects = utils.object_extract(question)
-	except:
-		ipdb.set_trace()
-
-	for object_, [object_idx1, object_idx2] in extracted_objects:
-	# for object_item in extracted_objects:
-		exception_list = [1 if exception in object_ else 0 for exception in exception_object]
-		if not sum(exception_list) > 0:
-			extracted_objects_.append([[object_], [object_idx1, object_idx2]])
-
-	if len(extracted_objects_) == 0:
-		ipdb.set_trace()
-
 	if not generate_unanswerable_que:
-		return [word_tokenized_question, extracted_objects_]
+		for question in sentences:
+			# question = sentence
+
+			extracted_objects_ = []
+			
+
+			word_tokenized_question = word_tokenize(question)
+			try:
+				extracted_objects = utils.object_extract(question)
+			except:
+				ipdb.set_trace()
+
+			for object_, [object_idx1, object_idx2] in extracted_objects:
+			# for object_item in extracted_objects:
+				exception_list = [1 if exception in object_ else 0 for exception in exception_object]
+				if not sum(exception_list) > 0:
+					extracted_objects_.append([[object_], [object_idx1, object_idx2]])
+
+			if len(extracted_objects_) == 0:
+				ipdb.set_trace()
+			new_data.append([word_tokenized_question, extracted_objects_])
+		return new_data
+		# if not generate_unanswerable_que:
+		# 	return [word_tokenized_question, extracted_objects_]
 	else:
-		n = len(extracted_objects_)
-		lsts = list(itertools.product([0, 1], repeat=n))
+		for question in sentences:
+			n = len(extracted_objects_)
+			lsts = list(itertools.product([0, 1], repeat=n))
 
-		# if question_dict['qid'] not in list(new_data.keys()):
-		# 	new_data[question_dict['qid']] = []
-		for lst in lsts: #go through each augmentation case
-			#making the 'red' list (refer to reserach notebook for what 'red' list is)
-			new_word_tokenized_question = copy.deepcopy(word_tokenized_question)
-			new_wordtokenize_idx = copy.deepcopy(extracted_objects_)
+			# if question_dict['qid'] not in list(new_data.keys()):
+			# 	new_data[question_dict['qid']] = []
+			for lst in lsts: #go through each augmentation case
+				#making the 'red' list (refer to reserach notebook for what 'red' list is)
+				new_word_tokenized_question = copy.deepcopy(word_tokenized_question)
+				new_wordtokenize_idx = copy.deepcopy(extracted_objects_)
 
-			for idx, word_bool in enumerate(lst): 
-				#if word_bool is true (that is no augmentation)
-				if word_bool:
-					continue
-				else: #if word_bool is false(we need to augment)
-					wordtokenize_idx_single = new_wordtokenize_idx[idx]
-					
-					object_ = [wordtokenize_idx_single[0]]
-					object_wordtokenize_idx = wordtokenize_idx_single[1]
-					object_wordtokenize_idx_start = object_wordtokenize_idx[0]
-					object_wordtokenize_idx_end = object_wordtokenize_idx[1]
+				for idx, word_bool in enumerate(lst): 
+					#if word_bool is true (that is no augmentation)
+					if word_bool:
+						continue
+					else: #if word_bool is false(we need to augment)
+						wordtokenize_idx_single = new_wordtokenize_idx[idx]
+						
+						object_ = [wordtokenize_idx_single[0]]
+						object_wordtokenize_idx = wordtokenize_idx_single[1]
+						object_wordtokenize_idx_start = object_wordtokenize_idx[0]
+						object_wordtokenize_idx_end = object_wordtokenize_idx[1]
 
-					while True: #TODO for the TODO is the bottom of filtering 
-						new_sampled_object_ = random.choice(object_list)
-						#TODO later we need to develop how to make sure that the new sampled object is not same as the original.
-						new_word_tokenized_question[object_wordtokenize_idx_start:object_wordtokenize_idx_end] = new_sampled_object_
+						while True: #TODO for the TODO is the bottom of filtering 
+							new_sampled_object_ = random.choice(object_list)
+							#TODO later we need to develop how to make sure that the new sampled object is not same as the original.
+							new_word_tokenized_question[object_wordtokenize_idx_start:object_wordtokenize_idx_end] = new_sampled_object_
 
-						#update new wordtokenize_idx
-						reference_idx = object_wordtokenize_idx_start
-						length_diff = len(object_) - len(new_sampled_object_) 
-						for idx2, wordtokenize_idx_single_update in enumerate(new_wordtokenize_idx):
-							if idx == idx2:
-								new_wordtokenize_idx[idx2][0] = new_sampled_object_
-								new_wordtokenize_idx[idx2][1][1] -= length_diff
+							#update new wordtokenize_idx
+							reference_idx = object_wordtokenize_idx_start
+							length_diff = len(object_) - len(new_sampled_object_) 
+							for idx2, wordtokenize_idx_single_update in enumerate(new_wordtokenize_idx):
+								if idx == idx2:
+									new_wordtokenize_idx[idx2][0] = new_sampled_object_
+									new_wordtokenize_idx[idx2][1][1] -= length_diff
 
-							else: #need to update the idx for other objects 
-								if new_wordtokenize_idx[idx2][1][0] > reference_idx: #TODO This is assuming no overlap, which I think is reasonable
-									new_wordtokenize_idx[idx2][1][0] -= length_diff #update start idx
-									new_wordtokenize_idx[idx2][1][1] -= length_diff #update end idx
-						break
-			new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx,list(lst)]
-			new_data.append(new_data_instance)
+								else: #need to update the idx for other objects 
+									if new_wordtokenize_idx[idx2][1][0] > reference_idx: #TODO This is assuming no overlap, which I think is reasonable
+										new_wordtokenize_idx[idx2][1][0] -= length_diff #update start idx
+										new_wordtokenize_idx[idx2][1][1] -= length_diff #update end idx
+							break
+				new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx,list(lst)]
+				new_data.append(new_data_instance)
 		return new_data
 
 def inference_demo(model, classifier_head, inputs):  
@@ -137,9 +142,8 @@ def main(args):
 	# for debug, we utilize AnotherMissOh obejct list as a dummy
 	object_list=utils_sys.read_pkl('/mnt/hsyoon/workspace/LBA-ARVQA/saves/custom_dataset/AnotherMissOhQA_object_list.pkl')
 
-	# data_instance = process_raw_sentence(exception_object=[], sentence='This is an example.', object_list=None, generate_unanswerable_que=False) 
-	data_instance = process_raw_sentence(exception_object=[], sentence='This is an example.', object_list=object_list, generate_unanswerable_que=True) 
-	
+	data_instance = process_raw_sentence(exception_object=[], sentences=['This is an example.', 'I have a cat'], object_list=None, generate_unanswerable_que=False) 
+	# data_instance = process_raw_sentence(exception_object=[], sentences=['This is an example.'], object_list=object_list, generate_unanswerable_que=True) 
 	inputs = utils.input_preprocess_demo(args, tokenizer, data_instance, tokenized_sg2sentence[13041])
 	with torch.no_grad():
 		for idx, item in enumerate(inputs):

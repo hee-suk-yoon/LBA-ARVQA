@@ -21,7 +21,8 @@ def build_parser():
 	parser = argparse.ArgumentParser(description='object extraction from dramaQA data annotation')
 
 	parser.add_argument('--seed', type=int, default=42)
-
+	parser.add_argument('--bsz', type=int, default=32)
+	
 	parser.add_argument('--run_name', type=str, default='debugging')
 
 	parser.add_argument('--data_name', type=str, choices=['train', 'val', 'test'])

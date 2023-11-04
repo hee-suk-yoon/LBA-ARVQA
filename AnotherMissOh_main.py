@@ -100,14 +100,16 @@ def train(args, model, classifier_head, optimizer_PLM, optimizer_classifier, tra
 		optimizer_PLM.zero_grad()
 		optimizer_classifier.zero_grad()
 		# batch = utils_sys.dict_to_device(batch, args.device)
-
 		outputs = model(batch[0].to(args.device), attention_mask=batch[1].to(args.device), token_type_ids=batch[2].to(args.device))['last_hidden_state']
-
 		target_word_idx = batch[3] 
 		output_of_interest = []
 		for idx, instance in enumerate(outputs):
 			key = list(target_word_idx[idx].keys())[0]
-			output_of_interest_instance = instance[target_word_idx[idx][key]]
+			
+			try:
+				output_of_interest_instance = instance[target_word_idx[idx][key]]
+			except:
+				ipdb.set_trace()
 			#average 
 			output_of_interest_instance = torch.mean(output_of_interest_instance, dim=0)
 			output_of_interest_instance = output_of_interest_instance.view(-1,output_of_interest_instance.shape[0])
@@ -300,7 +302,6 @@ def main(args):
 			if (utils_sys.is_main_process() or not dist.is_initialized()):
 				logger.info("start epoch {} training...".format(epoch+1))
 				print("start epoch {} training...".format(epoch+1))
-
 			training_loss, global_step = train(args, model, classifier_head, optimizer_PLM, optimizer_classifier, train_data, global_step)
 
 			with torch.no_grad():
