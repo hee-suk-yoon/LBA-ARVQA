@@ -36,7 +36,7 @@ Please use the NLTK Downloader to obtain the resource:
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### 1. Downlaod Dataset
+### 1. Download Dataset
 We are using DramaQA dataset from this year for answerability reasoning in Video Question Answering
 
 Download questions raw data from: https://dramaqa.snu.ac.kr/ 
