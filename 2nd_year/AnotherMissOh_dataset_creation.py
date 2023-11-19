@@ -49,6 +49,12 @@ def main(args):
 	 	utils_sys.set_seed(args, args.seed)
 
 # ============================================= load question and object list ======================================
+	if not args.output_dir:
+		raise AssertionError("directory is not provided!")
+
+	if not os.path.exists(args.output_dir):
+		os.makedirs(args.output_dir, exist_ok=True)
+	
 	# questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_train_set.json'))
 	questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_' + args.data_name + '_set.json'))
 	
@@ -126,7 +132,6 @@ def main(args):
 			
 			new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx,list(lst)]
 			new_data[question_dict['qid']].append(new_data_instance)
-			# ipdb.set_trace()
 	
 	save_fname = 'AnotherMissOh_' + args.data_name + '_created_data.pkl'
 	utils_sys.save_pkl(new_data, os.path.join(args.output_dir, save_fname))

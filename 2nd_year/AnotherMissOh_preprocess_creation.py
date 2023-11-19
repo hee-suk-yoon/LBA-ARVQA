@@ -46,18 +46,25 @@ def build_parser():
 	parser.add_argument('--custom_dataset_dir', type=str, default='./saves/custom_dataset')
 	parser.add_argument('--output_dir', type=str, default='./saves')
 	parser.add_argument('--dataset_dir', type=str, default='./dataset')
+	parser.add_argument('--data_split', type=str, required=True, choices=['train', 'val', 'test'])
 
 	parser.add_argument('--save_name', type=str, required=True, 
 					 	help='file name or detailed path for the processed file (e.g., preprocessed_data/train.pkl)')
 	return parser
 
 def main(args):
+	if not args.output_dir:
+		raise AssertionError("directory is not provided!")
+
+	if not os.path.exists(args.output_dir):
+		os.makedirs(args.output_dir, exist_ok=True)
+
 	_, tokenizer = utils.get_model(args)
 
-	questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_train_set.json'))
+	questions = utils_sys.read_json(os.path.join(args.dataset_dir, f'DramaQA/AnotherMissOhQA_{args.data_split}_set.json'))
 	sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
 
-	answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, 'AnotherMissOh_train_created_data.pkl'))
+	answerability_data = utils_sys.read_pkl(os.path.join(args.custom_dataset_dir, f'AnotherMissOh_{args.data_split}_created_data.pkl'))
 
 	sg2sentence = {}
 	for question in tqdm(questions):

@@ -49,7 +49,12 @@ def main(args):
 	 	utils_sys.set_seed(args, args.seed)
 
 # ============================================= obejct extraction ======================================================
-	
+	if not args.output_dir:
+		raise AssertionError("directory is not provided!")
+
+	if not os.path.exists(args.output_dir):
+		os.makedirs(args.output_dir, exist_ok=True)
+
 	detection_annotation = utils_sys.read_jsonl(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOh_Visual_Faster_RCNN_detected.json'))[0]
 	scenes = list(detection_annotation.keys())
 
@@ -57,7 +62,6 @@ def main(args):
 	val_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_val_set.json'))
 	test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_test_set.json'))
 	questions = train_questions+val_questions+test_questions
-	ipdb.set_trace()
 
 	object_list_detected = []
 	object_list_extracted = []
@@ -88,8 +92,6 @@ def main(args):
 
 
 		
-
-	ipdb.set_trace()
 	object_list_fname = 'AnotherMissOhQA_object_list.pkl'
 	utils_sys.save_pkl(object_list_extracted, os.path.join(args.output_dir, object_list_fname))
 
