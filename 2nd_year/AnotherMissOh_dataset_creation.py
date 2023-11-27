@@ -28,7 +28,7 @@ def build_parser():
 	parser.add_argument('--data_name', type=str, choices=['train', 'val', 'test'])
 
 	parser.add_argument('--output_dir', type=str, default='./saves/custom_dataset')
-	parser.add_argument('--dataset_dir', type=str, default='./dataset')
+	parser.add_argument('--dataset_dir', type=str, default='../dataset')
 
 	parser.add_argument('--world_size', default=1, type=int,
 						help='number of distributed processes')
@@ -155,4 +155,4 @@ if __name__ == "__main__":
 
 	main(args)
 
-	ipdb.set_trace()
+	# ipdb.set_trace()

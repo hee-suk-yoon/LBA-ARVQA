@@ -62,7 +62,7 @@ def build_parser():
 
 	parser.add_argument('--custom_dataset_dir', type=str, default='./saves/custom_dataset')
 	parser.add_argument('--output_dir', type=str, default='./saves')
-	parser.add_argument('--dataset_dir', type=str, default='./dataset')
+	parser.add_argument('--dataset_dir', type=str, default='../dataset')
 
 	parser.add_argument('--model_name', type=str, default='bert-base-uncased', choices=['bert-base-uncased'])
 	parser.add_argument('--max_length', type=int, default=512)

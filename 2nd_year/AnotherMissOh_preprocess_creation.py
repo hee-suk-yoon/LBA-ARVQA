@@ -45,7 +45,7 @@ def build_parser():
 
 	parser.add_argument('--custom_dataset_dir', type=str, default='./saves/custom_dataset')
 	parser.add_argument('--output_dir', type=str, default='./saves')
-	parser.add_argument('--dataset_dir', type=str, default='./dataset')
+	parser.add_argument('--dataset_dir', type=str, default='../dataset')
 	parser.add_argument('--data_split', type=str, required=True, choices=['train', 'val', 'test'])
 
 	parser.add_argument('--save_name', type=str, required=True, 

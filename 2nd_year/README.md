@@ -49,27 +49,30 @@ For the easier running, we recommend the data file structure looks like this:
 
 ```sh
 LBA-ARVQA
-    dataset/
-        DramaQA/
-            AnotherMissOh_Visual_Faster_RCNN_detected.json
-            AnotherMissOhQA_train_set.json
-            AnotherMissOhQA_val_set.json
-            AnotherMissOhQA_test_set.json
-        AnotherMissOh/
-            scene_graph/
-                AnotherMissOh01/
-                  001/
-                    .
-                    . 
-                AnotherMissOh02/
-                    .
-                    .
-                    .
-
-   AnotherMissOh_object_list_extraction.py
-   AnotherMissOh_dataset_creation.py
-   AnotherMissOh_preprocess_creation.py (optional)
-   AnotherMissOh_main.py
+  dataset/
+    DramaQA/
+      AnotherMissOh_Visual_Faster_RCNN_detected.json
+      AnotherMissOhQA_train_set.json
+      AnotherMissOhQA_val_set.json
+      AnotherMissOhQA_test_set.json
+    AnotherMissOh/
+      scene_graph/
+        AnotherMissOh01/
+          001/
+            0078/
+              custom_data_info.json
+              custom_prediction.json
+              .
+              . 
+        AnotherMissOh02/
+            .
+            .
+            .
+  2nd_year/
+    AnotherMissOh_object_list_extraction.py
+    AnotherMissOh_dataset_creation.py
+    AnotherMissOh_preprocess_creation.py (optional)
+    AnotherMissOh_main.py
 ```
 
 ### 2. Object List Extracting from Questions
@@ -81,14 +84,14 @@ python AnotherMissOh_object_list_extraction.py
 ### 3. Dataset augmentation to train the reasoning model
 Following commands should run without error:
 ```sh
-python AnotherMissOh_dataset_creation.py
+python AnotherMissOh_dataset_creation.py --data_name [train/val/test]
 ```
 
 ### 4. Preprocess the train/val/test dataset for fast experiment (optional)
 When you run the main code, it contains the data preprocessing procedure. Since it takes quite few times, we provide the preprocess code to save the preprocessed data for further uses.  
 Following commands should run without error:
 ```sh
-python AnotherMissOh_preprocess_creation.py --save_name [SAVE_FILE_NAME]
+python AnotherMissOh_preprocess_creation.py --save_name [SAVE_FILE_NAME] --data_split [train/val/test]
 ```
 
 ### 5. Training

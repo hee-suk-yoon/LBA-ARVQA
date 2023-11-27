@@ -28,7 +28,7 @@ def build_parser():
 	parser.add_argument('--run_name', type=str, default='debugging')
 
 	parser.add_argument('--output_dir', type=str, default='./saves/custom_dataset')
-	parser.add_argument('--dataset_dir', type=str, default='./dataset')
+	parser.add_argument('--dataset_dir', type=str, default='../dataset')
 
 	parser.add_argument('--world_size', default=1, type=int,
 						help='number of distributed processes')
@@ -46,7 +46,7 @@ def main(args):
 
 # ============================================= seed setting ======================================================
 	if args.seed:
-	 	utils_sys.set_seed(args, args.seed)
+		utils_sys.set_seed(args, args.seed)
 
 # ============================================= obejct extraction ======================================================
 	if not args.output_dir:
@@ -117,4 +117,4 @@ if __name__ == "__main__":
 
 	main(args)
 
-	ipdb.set_trace()
+	# ipdb.set_trace()
