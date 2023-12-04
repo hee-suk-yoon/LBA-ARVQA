@@ -132,7 +132,7 @@ def main(args):
 			
 			new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx,list(lst)]
 			new_data[question_dict['qid']].append(new_data_instance)
-	
+			
 	save_fname = 'AnotherMissOh_' + args.data_name + '_created_data.pkl'
 	utils_sys.save_pkl(new_data, os.path.join(args.output_dir, save_fname))
 

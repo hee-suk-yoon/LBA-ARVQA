@@ -395,6 +395,7 @@ def input_preprocess_V3(args, tokenizer, questions, frame_sg2sentence):
     
     current_idx = 0
     for imageid in list(questions.keys()):
+        ipdb.set_trace()
         if imageid in list(frame_sg2sentence.keys()):
     #for imageid in list(frame_sg2sentence.keys()):
         #frame_sentence = frame_sg2sentence[imageid]
@@ -476,9 +477,10 @@ def input_preprocess_V3(args, tokenizer, questions, frame_sg2sentence):
                 attention_m.extend([1])        
                 if output_idx[list(output_idx.keys())[0]] == []:
                     ipdb.set_trace()
-
+                ipdb.set_trace()
                 #padding
                 if len(attention_m) >= args.max_length:
+                    ipdb.set_trace()
                     continue
                 else:
                     c_ids, attention_m, target_ids = normalize_length(c_ids, attention_m, target_ids, args.max_length, pad_id=tokenizer.encode(tokenizer.pad_token, add_special_tokens=False)[0])
@@ -488,8 +490,9 @@ def input_preprocess_V3(args, tokenizer, questions, frame_sg2sentence):
                 inputs_type_ids.append(torch.tensor(target_ids).unsqueeze(dim=0)) 
                 output_idx_all.append(output_idx)
                 labels_all.append(label_)
+                ipdb.set_trace()
     data = list(zip(inputs_ids, inputs_attn, inputs_type_ids, output_idx_all,labels_all))
-
+    
     random.shuffle(data)
     if args.bsz > 1: #
         print('Batching data with bsz={}...'.format(args.bsz)) #
@@ -555,10 +558,10 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
 
         # added by esyoon 2023-11-01-15:22:04
         if len(c_ids) > args.max_length:
-            c_ids = c_ids[:args.max_length-3-len(question_split)]
-            target_ids = target_ids[:args.max_length-3-len(question_split)]
-            attention_m = attention_m[:args.max_length-3-len(question_split)]
-            idx_master = idx_master - args.max_length-3-len(question_split)
+            c_ids = c_ids[:args.max_length-15-len(question_split)]
+            target_ids = target_ids[:args.max_length-15-len(question_split)]
+            attention_m = attention_m[:args.max_length-15-len(question_split)]
+            idx_master = idx_master - args.max_length-15-len(question_split)
 
         c_ids.append(torch.tensor([tokenizer.encode(tokenizer.sep_token, add_special_tokens=False)])) #aka eos token 
         target_ids.extend([0])

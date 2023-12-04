@@ -18,6 +18,8 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
+import ipdb
+
 
 
 def build_parser():
@@ -91,7 +93,6 @@ def main(args):
 				object_list_extracted.append(object_.lower().split(' '))
 
 
-		
 	object_list_fname = 'AnotherMissOhQA_object_list.pkl'
 	utils_sys.save_pkl(object_list_extracted, os.path.join(args.output_dir, object_list_fname))
 

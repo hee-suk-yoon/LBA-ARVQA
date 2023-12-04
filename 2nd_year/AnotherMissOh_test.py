@@ -128,9 +128,12 @@ def main(args):
 	test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_test_set.json'))
 	sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
 
+	exception_object = ['Haeyoung', 'Jinsang', 'Taejin', 'relationship', 'kind', 'something', 'communication', 'someone', 'everything', 'com', 'color']
+
+
 	# for debug, we are currently input scene graph from AnotherMissOh. Maybe the caption of the video can be inputed instead
 	test_sg2sentence = {}
-	for question in tqdm(test_questions[0:2]):
+	for question in tqdm(test_questions[0:1]):
 		test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
 		test_sg2sentence[question['qid']] = ". ".join(test_sg)
 
@@ -140,15 +143,32 @@ def main(args):
 	# you can input user given sentence like "this is an exmaple"
 	# if you input generate_unanswerable_que=True, it will generate unanwerable by folloing the object list. 
 	# for debug, we utilize AnotherMissOh obejct list as a dummy
-	object_list=utils_sys.read_pkl('/mnt/hsyoon/workspace/LBA-ARVQA/saves/custom_dataset/AnotherMissOhQA_object_list.pkl')
 
-	data_instance = process_raw_sentence(exception_object=[], sentences=['This is an example.', 'I have a cat'], object_list=None, generate_unanswerable_que=False) 
-	# data_instance = process_raw_sentence(exception_object=[], sentences=['This is an example.'], object_list=object_list, generate_unanswerable_que=True) 
-	inputs = utils.input_preprocess_demo(args, tokenizer, data_instance, tokenized_sg2sentence[13041])
+	# for fast test
+	test_question = test_questions[0]['que']
+	test_qid = test_questions[0]['qid']
+
+	object_list=utils_sys.read_pkl('/mnt/hsyoon/workspace/LBA-ARVQA/saves/custom_dataset/AnotherMissOhQA_object_list.pkl')
+	data_instance = process_raw_sentence(exception_object=[], sentences=[test_question], object_list=None, generate_unanswerable_que=False) 
+
+	# For the case of using user given input question
+	# data_instance = process_raw_sentence(exception_object=[], sentences=['This is an example.', 'I have a cat'], object_list=None, generate_unanswerable_que=False) 
+
+
+	# For the case when generating unanswerable question at the same time with AnotherMissOh
+	# data_instance = process_raw_sentence(exception_object=exception_object, sentences=['This is an example.'], object_list=object_list, generate_unanswerable_que=True) 
+	inputs = utils.input_preprocess_demo(args, tokenizer, data_instance, tokenized_sg2sentence[test_qid])
 	with torch.no_grad():
 		for idx, item in enumerate(inputs):
 			# label = [[batch[-2], batch[-1].bool()] for batch in item ]
 			prediction = inference_demo(model, classifier_head, item)
+			answerability = []
+			for idx, pred in prediction:
+				if False in pred.values():
+					answerability.append('unanwerable')
+				else:
+					answerability.append('anwerable')
+
 			ipdb.set_trace()
 			
 	return
@@ -173,7 +193,7 @@ if __name__ =="__main__":
 	parser.add_argument('--sg_rels_topk', type=int, default=50)
 
 	parser.add_argument('--custom_dataset_dir', type=str, default='./saves/custom_dataset')
-	parser.add_argument('--dataset_dir', type=str, default='./dataset')
+	parser.add_argument('--dataset_dir', type=str, default='../dataset')
 	args = parser.parse_args()
 	
 	main(args)
