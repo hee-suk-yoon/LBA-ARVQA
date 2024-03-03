@@ -125,7 +125,7 @@ def main(args):
 	classifier_head.load_state_dict(torch.load('/mnt/hsyoon/workspace/LBA-ARVQA/saves/ckpt/2023-10-30_15:13:30_classifier_best_loss.pt'))
 	classifier_head.to(device)
 
-	test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_test_set.json'))
+	test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, 'DramaQA/AnotherMissOhQA_train_set.json'))
 	sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
 
 	exception_object = ['Haeyoung', 'Jinsang', 'Taejin', 'relationship', 'kind', 'something', 'communication', 'someone', 'everything', 'com', 'color']
@@ -133,9 +133,11 @@ def main(args):
 
 	# for debug, we are currently input scene graph from AnotherMissOh. Maybe the caption of the video can be inputed instead
 	test_sg2sentence = {}
-	for question in tqdm(test_questions[0:1]):
-		test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
-		test_sg2sentence[question['qid']] = ". ".join(test_sg)
+	for idx, question in enumerate(tqdm(test_questions)):
+		if question['qid'] == 8339:
+			que_idx = idx
+			test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
+			test_sg2sentence[question['qid']] = ". ".join(test_sg)
 
 	# tokenize the sentenced scene graph
 	tokenized_sg2sentence = utils.sentence2tokenize(args, tokenizer, test_sg2sentence)
@@ -144,9 +146,10 @@ def main(args):
 	# if you input generate_unanswerable_que=True, it will generate unanwerable by folloing the object list. 
 	# for debug, we utilize AnotherMissOh obejct list as a dummy
 
+
 	# for fast test
-	test_question = test_questions[0]['que']
-	test_qid = test_questions[0]['qid']
+	test_question = test_questions[que_idx]['que']
+	test_qid = test_questions[que_idx]['qid']
 
 	object_list=utils_sys.read_pkl('/mnt/hsyoon/workspace/LBA-ARVQA/saves/custom_dataset/AnotherMissOhQA_object_list.pkl')
 	data_instance = process_raw_sentence(exception_object=[], sentences=[test_question], object_list=None, generate_unanswerable_que=False) 
@@ -163,6 +166,7 @@ def main(args):
 			# label = [[batch[-2], batch[-1].bool()] for batch in item ]
 			prediction = inference_demo(model, classifier_head, item)
 			answerability = []
+			ipdb.set_trace()
 			for idx, pred in prediction:
 				if False in pred.values():
 					answerability.append('unanwerable')
