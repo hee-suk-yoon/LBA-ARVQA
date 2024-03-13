@@ -653,6 +653,16 @@ def sentence2tokenize(args, tokenizer, train_sg2sentence):
     
     return tokenized_train_sg2sentence
 
+def demo_sentence2tokenize(args, tokenizer, train_sg2sentence):
+
+    frame_sentence_split = word_tokenize(train_sg2sentence)
+    total_word_ids = []
+    for idx, word in enumerate(frame_sentence_split):
+        word_ids = [torch.tensor([[x]]) for x in tokenizer.encode(word, add_special_tokens=False)]
+        total_word_ids.extend(word_ids)
+    
+    return total_word_ids
+
 def input_preprocess(args, tokenizer, list_frame_question_pairs, frame_sg2sentence):
     inputs_ids = []
     inputs_attn = []
@@ -868,7 +878,32 @@ def AnotherMissOh_sg(args, sg_fpath, question):
 
     return phrases
 
+def demo_AnotherMissOh_sg(args, sg_fpath):
+    sg_files = glob.glob(os.path.join(sg_fpath, '*.json'))
+    sg_data_list = [load_json(sg_file) for sg_file in sg_files]
+    phrases = []
+    data_info = load_json(os.path.join(args.root_dir, 'demo', 'custom_data_info.json'))
+    for sg_data in sg_data_list:
+       
+        idx2node = data_info['ind_to_classes']             
+        idx2relation = data_info['ind_to_predicates'] 
+        
+        for k, sg_item in sg_data.items():
 
+            for idx, relation in enumerate(sg_item['rel_pairs']):
+                node1_idx, node2_idx = relation
+
+                node1 = idx2node[sg_item['bbox_labels'][node1_idx]]
+                node2 = idx2node[sg_item['bbox_labels'][node2_idx]]
+
+                node1_score = sg_item['bbox_scores'][node1_idx]
+                node2_score = sg_item['bbox_scores'][node2_idx]
+                relation = idx2relation[sg_item['rel_labels'][idx]]
+                relation_score = sg_item['rel_scores'][idx]
+
+                if (node1_score> args.bbox_threshold) and (node2_score> args.bbox_threshold) and (relation_score> args.rel_threshold):
+                    phrases.append(node1 + ' '+ relation + ' ' + node2)
+    return phrases
 
 def get_dataset_fn(args, dataset_type, tokenizer, split):
     if dataset_type == 'coqa':

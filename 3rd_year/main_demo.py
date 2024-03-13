@@ -138,28 +138,36 @@ def main(args):
     else:
         output_list = utils_sys.read_json(os.path.join(args.output_dir, 'output_KAIST.json'))
 
-    test_questions = utils_sys.read_json(os.path.join(args.dataset_dir, args.test_question))
-    sg_fpath = os.path.join(args.dataset_dir, 'AnotherMissOh', 'scene_graph')
+    test_questions = utils_sys.read_json(os.path.join(args.root_dir, 'demo', args.input_question))
+    sg_fpath = os.path.join(args.root_dir, args.input_sg)
 
-    exception_object = ['Haeyoung', 'Jinsang', 'Taejin', 'relationship', 'kind', 'something', 'communication', 'someone', 'everything', 'com', 'color']
-    object_list=utils_sys.read_pkl(os.path.join(args.root_dir, args.object_list))
+    exception_object_listobject = ['Haeyoung', 'Jinsang', 'Taejin', 'relationship', 'kind', 'something', 'communication', 'someone', 'everything', 'com', 'color']
+    object_list = utils_sys.read_pkl(os.path.join(args.root_dir, args.object_list))
+    # object_list = utils_sys.read_pkl(args.object_list)
 
-    # for debug, we are currently input scene graph from AnotherMissOh. Maybe the caption of the video can be inputed instead
+    # we set the case for the only one video is inputted and answering questions for one given video
+    sg2sentence = utils.demo_AnotherMissOh_sg(args, os.path.join(args.root_dir, 'demo', args.input_sg))
+    sg2sentence = ". ".join(sg2sentence)
+
     for idx, question in enumerate(tqdm(test_questions)):
         output_dict = {}
         test_sg2sentence = {}
 
         que_idx = idx
-        test_sg = utils.AnotherMissOh_sg(args, sg_fpath, question)
-        test_sg2sentence[question['qid']] = ". ".join(test_sg)
-
-        output_dict['qid'] = question['qid']
         output_dict['question'] = question['que']
-        output_dict['vid'] = question['vid']
+        try: # if there is no vid in input question data, output None for the vid
+            output_dict['vid'] = question['vid']
+        except:
+            output_dict['vid'] = None
+
+        try: # if there is no qid in input question data, output None for the vid
+            output_dict['qid'] = question['qid']
+        except:
+            output_dict['qid'] = None
 
 
         # tokenize the sentenced scene graph
-        tokenized_sg2sentence = utils.sentence2tokenize(args, tokenizer, test_sg2sentence)
+        tokenized_sg2sentence = utils.demo_sentence2tokenize(args, tokenizer, sg2sentence)
 
         # you can input user given sentence like "this is an exmaple"
         # if you input generate_unanswerable_que=True, it will generate unanwerable by folloing the object list. 
@@ -167,9 +175,7 @@ def main(args):
 
 
         # for fast test
-        test_question = test_questions[que_idx]['que']
-        test_qid = test_questions[que_idx]['qid']
-
+        test_question = question['que']
         
         data_instance = process_raw_sentence(exception_object=[], sentences=[test_question], object_list=object_list, generate_unanswerable_que=False) 
 
@@ -179,7 +185,7 @@ def main(args):
 
         # For the case when generating unanswerable question at the same time with AnotherMissOh
         # data_instance = process_raw_sentence(exception_object=exception_object, sentences=['This is an example.'], object_list=object_list, generate_unanswerable_que=True) 
-        inputs = utils.input_preprocess_demo(args, tokenizer, data_instance, tokenized_sg2sentence[test_qid])
+        inputs = utils.input_preprocess_demo(args, tokenizer, data_instance, tokenized_sg2sentence)
         with torch.no_grad():
             for idx, item in enumerate(inputs):
                 # label = [[batch[-2], batch[-1].bool()] for batch in item ]
@@ -211,16 +217,16 @@ if __name__ =="__main__":
     parser.add_argument('--bsz', type=int, default=2) 
     parser.add_argument('--sg_rels_topk', type=int, default=50)
 
-    parser.add_argument('--root_dir', type='str', defualt='/mnt/hsyoon/workspace/LBA-ARVQA/3rd_year')
+    parser.add_argument('--root_dir', type=str, default='/mnt/hsyoon/workspace/LBA-ARVQA/3rd_year')
     
     parser.add_argument('--model_ckpt', type=str, default='./ckpt/2023-10-30_15:13:30_best_loss.pt')
     parser.add_argument('--classifier_ckpt', type=str, default='./ckpt/2023-10-30_15:13:30_classifier_best_loss.pt')
     parser.add_argument('--object_list', type=str, default='./saves/AnotherMissOhQA_object_list.pkl')
-    parser.add_argument('--test_question', type=str, default='DramaQA/AnotherMissOhQA_test_set.json')
 
-    parser.add_argument('--dataset_dir', type=str, default='../dataset')
-    parser.add_argument('--output_dir', type=str, default='./LBA_2024')
-    parser.add_argument('--output_fname', type=str, defualt='output_KAIST.json')
+    parser.add_argument('--output_dir', type=str, default='./demo/LBA_2024')
+    parser.add_argument('--output_fname', type=str, default='output_KAIST.json')
+    parser.add_argument('--input_question', type=str, default='demo_question.json')
+    parser.add_argument('--input_sg',type=str, default='demo_sg')
     args = parser.parse_args()
     
     main(args)

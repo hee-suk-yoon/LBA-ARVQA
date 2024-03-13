@@ -153,6 +153,10 @@ def read_json(path):
     data = json.load(f)  
     return data  
 
+def write_json(data, path):
+	with open(path, 'w') as f:
+		json.dump(data, f, ensure_ascii=False, indent=4)
+	return
 
 def set_run_name(args):
 	from datetime import date, datetime, timezone, timedelta
