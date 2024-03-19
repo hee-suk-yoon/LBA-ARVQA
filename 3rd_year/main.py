@@ -180,7 +180,7 @@ def main(args):
 
         
         # data_instance = process_raw_sentence(exception_object=exception_object, sentences=[test_question], object_list=object_list, generate_unanswerable_que=False) 
-        data_instance = process_raw_sentence(exception_object=exception_object, sentences=[test_question], object_list=object_list, generate_unanswerable_que=True) 
+        data_instance = process_raw_sentence(exception_object=exception_object, sentences=[test_question], object_list=object_list, generate_unanswerable_que=args.generate_unanswerable_que) 
         # For the case of using user given input question
         # data_instance = process_raw_sentence(exception_object=[], sentences=['This is an example.', 'I have a cat'], object_list=None, generate_unanswerable_que=False) 
 
@@ -222,6 +222,7 @@ if __name__ =="__main__":
     parser.add_argument('--max_length', type=int, default=512)
     parser.add_argument('--bsz', type=int, default=4) 
     parser.add_argument('--sg_rels_topk', type=int, default=50)
+    parser.add_argument('--damping_length', type=int, default=15)
 
     parser.add_argument('--root_dir', type=str, default='/mnt/hsyoon/workspace/LBA-ARVQA/3rd_year')
     
@@ -233,6 +234,8 @@ if __name__ =="__main__":
     parser.add_argument('--dataset_dir', type=str, default='../dataset')
     parser.add_argument('--output_dir', type=str, default='./LBA_2024')
     parser.add_argument('--output_fname', type=str, default='output_KAIST.json')
+
+    parser.add_argument('--generate_unanswerable_que', action='store_true')
     args = parser.parse_args()
     
     main(args)

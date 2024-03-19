@@ -148,7 +148,10 @@ def object_extract(question):
     objects_passed = [] #objects that have passed the Noun POS test
     for idx, (head, span_bounds_head) in enumerate(objects):
         tagged_idx = span_bounds_head[0]
-        pos = tagged[tagged_idx][1]
+        try:
+            pos = tagged[tagged_idx][1] # error 생기는 경우: brother-in-law 
+        except:
+            continue
         if pos in ['NN', 'NNS']:
             objects_passed.append((head, span_bounds_head))
 
@@ -560,9 +563,9 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
 
         # added by esyoon 2023-11-01-15:22:04
         if len(c_ids) > args.max_length:
-            c_ids = c_ids[:args.max_length-15-len(question_split)]
-            target_ids = target_ids[:args.max_length-15-len(question_split)]
-            attention_m = attention_m[:args.max_length-15-len(question_split)]
+            c_ids = c_ids[:args.max_length - args.damping_length - len(question_split)]
+            target_ids = target_ids[:args.max_length - args.damping_length - len(question_split)]
+            attention_m = attention_m[:args.max_length - args.damping_length - len(question_split)]
             # idx_master = idx_master - args.max_length-15-len(question_split)
             idx_master = len(attention_m)-1
 

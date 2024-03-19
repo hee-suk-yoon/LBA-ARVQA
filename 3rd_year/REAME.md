@@ -86,11 +86,18 @@ Following commands should run without error. It will save `AnotherMissOhQA_objec
 python object_list_extraction.py
 ```
 
-### 3. Run the demo (main_demo.py)
+### 3-1. Run the demo (main_demo.py)
 The input for the demo needs to be prepared in advance (scene graph for the video and question as saved in 'demo' folder). The scene graph can be multiple json files but it needs to be saved in `demo/demo_sg` If you run this file, the output file will be saved in `demo/LBA_2024/output_KAIST.json`
 
 ```sh
 python main_demo.py --root_dir {dir_of_3rd_year_foler} --model_ckpt {saved ckpt results from 2nd year} --classifier_ckpt {saved ckpt results from 2nd year}
+```
+
+### 3-2. Run main.py (main_demo.py)
+main.py is specifically working for the input question is AnotherMissOh train or test dataset and corresponding scene graphs. If you run this `main.py` code, it will generate the `LBA_2024/output_KAIST.json` (it can be sepcified by `args.output_dir` and `args.output_fname`) and save the answerability prediction results for the whole dataset. Furthermore, when you set `args.generate_unanswerable_que`,  it will generate unawerable question and save the prediction on generated unanswerable question as well. (Default: `False`)
+
+```sh
+python main.py --root_dir {dir_of_3rd_year_foler} --model_ckpt {saved ckpt results from 2nd year} --classifier_ckpt {saved ckpt results from 2nd year}
 ```
 
 <!-- CONTRIBUTING -->
