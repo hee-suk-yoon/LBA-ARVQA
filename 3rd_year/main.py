@@ -49,13 +49,27 @@ def process_raw_sentence(exception_object=[], sentences=['This is an example.'],
                     extracted_objects_.append([[object_], [object_idx1, object_idx2]])
 
             if len(extracted_objects_) == 0:
-                ipdb.set_trace()
+                continue
             new_data.append([word_tokenized_question, extracted_objects_])
         return new_data
         # if not generate_unanswerable_que:
         # 	return [word_tokenized_question, extracted_objects_]
     else:
         for question in sentences:
+            extracted_objects_ = []
+
+            word_tokenized_question = word_tokenize(question)
+
+            extracted_objects = utils.object_extract(question)
+
+            for object_, [object_idx1, object_idx2] in extracted_objects:
+            # for object_item in extracted_objects:
+                exception_list = [1 if exception in object_ else 0 for exception in exception_object]
+                if not sum(exception_list) > 0:
+                    extracted_objects_.append([[object_], [object_idx1, object_idx2]])
+            if len(extracted_objects_) == 0:
+                continue
+
             n = len(extracted_objects_)
             lsts = list(itertools.product([0, 1], repeat=n))
 
@@ -73,7 +87,7 @@ def process_raw_sentence(exception_object=[], sentences=['This is an example.'],
                     else: #if word_bool is false(we need to augment)
                         wordtokenize_idx_single = new_wordtokenize_idx[idx]
                         
-                        object_ = [wordtokenize_idx_single[0]]
+                        object_ = wordtokenize_idx_single[0]
                         object_wordtokenize_idx = wordtokenize_idx_single[1]
                         object_wordtokenize_idx_start = object_wordtokenize_idx[0]
                         object_wordtokenize_idx_end = object_wordtokenize_idx[1]
@@ -85,7 +99,7 @@ def process_raw_sentence(exception_object=[], sentences=['This is an example.'],
 
                             #update new wordtokenize_idx
                             reference_idx = object_wordtokenize_idx_start
-                            length_diff = len(object_) - len(new_sampled_object_) 
+                            length_diff = len(object_) - len(new_sampled_object_)
                             for idx2, wordtokenize_idx_single_update in enumerate(new_wordtokenize_idx):
                                 if idx == idx2:
                                     new_wordtokenize_idx[idx2][0] = new_sampled_object_
@@ -96,7 +110,7 @@ def process_raw_sentence(exception_object=[], sentences=['This is an example.'],
                                         new_wordtokenize_idx[idx2][1][0] -= length_diff #update start idx
                                         new_wordtokenize_idx[idx2][1][1] -= length_diff #update end idx
                             break
-                new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx,list(lst)]
+                new_data_instance = [new_word_tokenized_question, new_wordtokenize_idx, list(lst)]
                 new_data.append(new_data_instance)
         return new_data
 
@@ -118,17 +132,11 @@ def inference_demo(model, classifier_head, inputs):
 
 def main(args):
     model, tokenizer = utils.get_model(args)
-    try:
-        model.load_state_dict(torch.load(args.model_ckpt))
-    except:
-        pass
+    model.load_state_dict(torch.load(args.model_ckpt))
     model.to(device)
 
     classifier_head = utils.Predicate2Bool(model.config.hidden_size)
-    try:
-        classifier_head.load_state_dict(torch.load(args.classifier_ckpt))
-    except:
-        pass    
+    classifier_head.load_state_dict(torch.load(args.classifier_ckpt))
     classifier_head.to(device)
 
     # generate output directory
@@ -171,8 +179,8 @@ def main(args):
         test_qid = test_questions[que_idx]['qid']
 
         
-        data_instance = process_raw_sentence(exception_object=[], sentences=[test_question], object_list=object_list, generate_unanswerable_que=False) 
-
+        # data_instance = process_raw_sentence(exception_object=exception_object, sentences=[test_question], object_list=object_list, generate_unanswerable_que=False) 
+        data_instance = process_raw_sentence(exception_object=exception_object, sentences=[test_question], object_list=object_list, generate_unanswerable_que=True) 
         # For the case of using user given input question
         # data_instance = process_raw_sentence(exception_object=[], sentences=['This is an example.', 'I have a cat'], object_list=None, generate_unanswerable_que=False) 
 
@@ -186,16 +194,20 @@ def main(args):
                 prediction = inference_demo(model, classifier_head, item)
                 answerability = []
                 if not prediction:
+                    ipdb.set_trace() #TODO
                     answerability.append('anwerable')
                 else:
-                    for idx, pred in enumerate(prediction):
+                    for idx_, pred in enumerate(prediction):
+                        answerability = []
                         if False in pred.values():
                             answerability.append('unanwerable')
                         else:
                             answerability.append('anwerable')
-                output_dict['answerability'] = answerability
-                output_dict['prediction'] = prediction
-                output_list.append(output_dict)
+                        output_dict['answerability'] = answerability
+                        output_dict['prediction'] = prediction[idx_]
+                        output_dict['question'] = " ".join(data_instance[idx_][0])
+                        output_dict['GT answerability'] = bool(data_instance[idx_][-1][0])
+                        output_list.append(output_dict.copy())
             
             # save the json list 
             utils_sys.write_json(output_list, os.path.join(args.output_dir, args.output_fname))
@@ -208,10 +220,10 @@ if __name__ =="__main__":
 
     parser.add_argument('--model_name', type=str, default='bert-base-uncased', choices=['bert-base-uncased'])
     parser.add_argument('--max_length', type=int, default=512)
-    parser.add_argument('--bsz', type=int, default=2) 
+    parser.add_argument('--bsz', type=int, default=4) 
     parser.add_argument('--sg_rels_topk', type=int, default=50)
 
-    parser.add_argument('--root_dir', type='str', defualt='/mnt/hsyoon/workspace/LBA-ARVQA/3rd_year')
+    parser.add_argument('--root_dir', type=str, default='/mnt/hsyoon/workspace/LBA-ARVQA/3rd_year')
     
     parser.add_argument('--model_ckpt', type=str, default='./ckpt/2023-10-30_15:13:30_best_loss.pt')
     parser.add_argument('--classifier_ckpt', type=str, default='./ckpt/2023-10-30_15:13:30_classifier_best_loss.pt')
@@ -220,7 +232,7 @@ if __name__ =="__main__":
 
     parser.add_argument('--dataset_dir', type=str, default='../dataset')
     parser.add_argument('--output_dir', type=str, default='./LBA_2024')
-    parser.add_argument('--output_fname', type=str, defualt='output_KAIST.json')
+    parser.add_argument('--output_fname', type=str, default='output_KAIST.json')
     args = parser.parse_args()
     
     main(args)

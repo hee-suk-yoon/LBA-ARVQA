@@ -137,6 +137,8 @@ def object_extract(question):
         words = nltk.word_tokenize(span)
         if head in words:
             pos = words.index(head)
+        else:
+            continue
         span_bounds_head = (span_bounds[0]+pos,span_bounds[0]+pos+1)
         objects.append((head,span_bounds_head))
 
@@ -270,7 +272,7 @@ def input_preprocess_V2(args, tokenizer, questions, frame_sg2sentence):
         #frame_sentence = frame_sg2sentence[imageid]
             for frame_question_pair in questions[imageid]: #one red
                 current_idx += 1
-                print(str(current_idx) + 'out of ' + str(total_length))
+                # print(str(current_idx) + 'out of ' + str(total_length))
                 #question = frame_question_pair[1]
                 #predicates = object_extract(question)
                 
@@ -358,7 +360,7 @@ def input_preprocess_V2(args, tokenizer, questions, frame_sg2sentence):
 
     random.shuffle(data)
     if args.bsz > 1: #
-        print('Batching data with bsz={}...'.format(args.bsz)) #
+        # print('Batching data with bsz={}...'.format(args.bsz)) #
         batched_data = [] # 
         for idx in range(0, len(data), args.bsz): #
             if idx+args.bsz <=len(data): b = data[idx:idx+args.bsz] #
@@ -401,7 +403,7 @@ def input_preprocess_V3(args, tokenizer, questions, frame_sg2sentence):
         #frame_sentence = frame_sg2sentence[imageid]
             for frame_question_pair in questions[imageid]: #one red
                 current_idx += 1
-                print(str(current_idx) + ' out of ' + str(total_length))
+                # print(str(current_idx) + ' out of ' + str(total_length))
                 #question = frame_question_pair[1]
                 #predicates = object_extract(question)
                 
@@ -495,7 +497,7 @@ def input_preprocess_V3(args, tokenizer, questions, frame_sg2sentence):
     
     random.shuffle(data)
     if args.bsz > 1: #
-        print('Batching data with bsz={}...'.format(args.bsz)) #
+        # print('Batching data with bsz={}...'.format(args.bsz)) #
         batched_data = [] # 
         for idx in range(0, len(data), args.bsz): #
             if idx+args.bsz <=len(data): b = data[idx:idx+args.bsz] #
@@ -561,7 +563,8 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
             c_ids = c_ids[:args.max_length-15-len(question_split)]
             target_ids = target_ids[:args.max_length-15-len(question_split)]
             attention_m = attention_m[:args.max_length-15-len(question_split)]
-            idx_master = idx_master - args.max_length-15-len(question_split)
+            # idx_master = idx_master - args.max_length-15-len(question_split)
+            idx_master = len(attention_m)-1
 
         c_ids.append(torch.tensor([tokenizer.encode(tokenizer.sep_token, add_special_tokens=False)])) #aka eos token 
         target_ids.extend([0])
@@ -588,7 +591,6 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
 
             if active_pred:
                 output_idx[str(predicates[active_pred_idx][0])].extend(list(range(idx_master,idx_master+len(word_ids))))
-
             idx_master += len(word_ids)
         
         c_ids.append(torch.tensor([tokenizer.encode(tokenizer.sep_token, add_special_tokens=False)])) #aka eos token 
@@ -596,8 +598,6 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
         attention_m.extend([1])        
         if output_idx[list(output_idx.keys())[0]] == []:
             ipdb.set_trace()
-
-
         #padding
         if len(attention_m) >= args.max_length:
             ipdb.set_trace()
@@ -612,7 +612,7 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
 
     data = list(zip(inputs_ids, inputs_attn, inputs_type_ids, output_idx_all))
     if args.bsz > 1: #
-        print('Batching data with bsz={}...'.format(args.bsz)) #
+        # print('Batching data with bsz={}...'.format(args.bsz)) #
         batched_data = [] # 
         for idx in range(0, len(data), args.bsz): #
             if idx+args.bsz <=len(data): b = data[idx:idx+args.bsz] #
@@ -642,7 +642,7 @@ def sentence2tokenize(args, tokenizer, train_sg2sentence):
     
     for train_scenegraph_id in list(train_sg2sentence.keys()):
         current_idx += 1
-        print(str(current_idx) + ' out of ' + str(total_length))
+        # print(str(current_idx) + ' out of ' + str(total_length))
 
         frame_sentence_split = word_tokenize(train_sg2sentence[train_scenegraph_id])
         total_word_ids = []
