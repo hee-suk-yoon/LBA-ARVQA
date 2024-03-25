@@ -93,7 +93,7 @@ The input for the demo needs to be prepared in advance (scene graph for the vide
 python main_demo.py --root_dir {dir_of_3rd_year_foler} --model_ckpt {saved ckpt results from 2nd year} --classifier_ckpt {saved ckpt results from 2nd year}
 ```
 
-### 3-2. Run main.py (main_demo.py)
+### 3-2. Run main.py
 main.py is specifically working for the input question is AnotherMissOh train or test dataset and corresponding scene graphs. If you run this `main.py` code, it will generate the `LBA_2024/output_KAIST.json` (it can be sepcified by `args.output_dir` and `args.output_fname`) and save the answerability prediction results for the whole dataset. Furthermore, when you set `args.generate_unanswerable_que`,  it will generate unawerable question and save the prediction on generated unanswerable question as well. (Default: `False`)
 
 ```sh
