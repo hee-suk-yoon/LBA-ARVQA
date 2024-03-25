@@ -222,7 +222,7 @@ if __name__ =="__main__":
     parser.add_argument('--max_length', type=int, default=512)
     parser.add_argument('--bsz', type=int, default=4) 
     parser.add_argument('--sg_rels_topk', type=int, default=50)
-    parser.add_argument('--damping_length', type=int, default=15)
+    parser.add_argument('--damping_length', type=int, default=20)
 
     parser.add_argument('--root_dir', type=str, default='/mnt/hsyoon/workspace/LBA-ARVQA/3rd_year')
     

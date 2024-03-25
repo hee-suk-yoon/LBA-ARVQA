@@ -485,7 +485,6 @@ def input_preprocess_V3(args, tokenizer, questions, frame_sg2sentence):
                 ipdb.set_trace()
                 #padding
                 if len(attention_m) >= args.max_length:
-                    ipdb.set_trace()
                     continue
                 else:
                     c_ids, attention_m, target_ids = normalize_length(c_ids, attention_m, target_ids, args.max_length, pad_id=tokenizer.encode(tokenizer.pad_token, add_special_tokens=False)[0])
@@ -532,7 +531,8 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
         question_split = frame_question_pair[0]
         predicates = frame_question_pair[1]
         if predicates == []:
-            raise ValueError("there is no object in the given sentence")
+            # raise ValueError("there is no object in the given sentence")
+            continue
         #ipdb.set_trace()
         output_idx = {str(el[0]):[] for el in predicates}
         #output_idx = [[] for el in predicates]
@@ -600,10 +600,12 @@ def input_preprocess_demo(args, tokenizer, questions, sg2sentence):
         target_ids.extend([1])
         attention_m.extend([1])        
         if output_idx[list(output_idx.keys())[0]] == []:
-            ipdb.set_trace()
+            # ipdb.set_trace()
+            continue
         #padding
         if len(attention_m) >= args.max_length:
-            ipdb.set_trace()
+            # ipdb.set_trace()
+            continue
         else:
             c_ids, attention_m, target_ids = normalize_length(c_ids, attention_m, target_ids, args.max_length, pad_id=tokenizer.encode(tokenizer.pad_token, add_special_tokens=False)[0])
 
