@@ -204,7 +204,7 @@ def main(args):
                         else:
                             answerability.append('anwerable')
                         output_dict['answerability'] = answerability
-                        output_dict['prediction'] = prediction[idx_]
+                        output_dict['prediction'] = [prediction[idx_]]
                         output_dict['question'] = " ".join(data_instance[idx_][0])
                         output_dict['GT answerability'] = bool(data_instance[idx_][-1][0])
                         output_list.append(output_dict.copy())
