@@ -104,7 +104,7 @@ For the large scale inference, you can use the sample dataset uploaded in this r
 ### 4. Extracting the unanswerable entity (optional)
 If you want to extract the specific entity of the reason why the question is unanswerable, run the following command. It will save the processed json file in the `result` folder
 ```sh
-python inference/process_unanswerable_answer.py --pred_path [PREDICTION_FILE_FROM_STEP3] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --save_name [PROCESSED_FILE_NAME_FOR_SAVE]
+python inference/process_unanswerable_answer.py --pred_path [PREDICTION_FILE_FROM_STEP3] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --save_name [PROCESSED_FILE_NAME_FOR_SAVE] --api_key [OPENAI_KEY]
 ```
 
 <!-- CONTRIBUTING -->
