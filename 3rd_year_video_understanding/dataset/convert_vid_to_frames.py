@@ -8,8 +8,8 @@ from multiprocessing import Pool
 from moviepy.editor import VideoFileClip
 
 
-video_folder = "/data/kakao/workspace/LBA-ARVQA/3rd_year_video_understanding/dataset/sample/videos"
-output_folder = "/data/kakao/workspace/LBA-ARVQA/3rd_year_video_understanding/dataset/sample/frames_"
+video_folder = "ADD_VIDEO_FOLDER_PATH_HERE"
+output_folder = "ADD_OUTPUT_FOLDER_PATH_HERE"
 
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
