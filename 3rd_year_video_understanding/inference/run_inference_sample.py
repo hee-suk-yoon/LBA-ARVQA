@@ -35,7 +35,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-path", type=str, default='/data/kakao/workspace/models/vlm_rlaif_video_llava_7b')
     # parser.add_argument("--model-base", type=str, default=None)
-    parser.add_argument("--model-base", type=str, default="/data/kakao/workspace/models/llava-v1.5-7b")
+    parser.add_argument("--model-base", type=str, default=None)
 
     # Define the command-line arguments
     parser.add_argument('--images', action='store_true')
@@ -63,6 +63,8 @@ def parse_args():
 
     parser.add_argument("--run_model_name", type=str, default="vlm_rlaif", help="Model name for the run vlm_rlaif / video_llava / llama_vid")
     parser.add_argument("--save_name", type=str, default="pred_output.json", help="Name of the output file")
+    parser.add_argument("--input_video", action="store_true", help="Whether to use video as input")
+    parser.add_argument("--input_image_frames", action="store_true", help="Whether to use image frames as input (already converted)")
 
     return parser.parse_args()
 
@@ -229,10 +231,11 @@ def run_inference(args):
 
         model.cuda()
     
-    # img_full_path = "/data2/esyoon_hdd/MOMA-LRG/videos/frames/BLVFoLDBReU"
-    img_full_path = "/home/work/workspace/data/MOMA-LRG/frames/BLVFoLDBReU"
+    img_full_path = "/data2/esyoon_hdd/MOMA-LRG/videos/frames/BLVFoLDBReU"
+    # img_full_path = "/home/work/workspace/data/MOMA-LRG/frames/BLVFoLDBReU"
     # question = "Is there any basketball player in the video?"
-    question = "What color is the nail clipper in the video?"
+    # question = "What color is the nail clipper in the video?"
+    question = "What color is the towel in the video?"
     answer = "A worker in a salon is trimming a client's toenails with a nail clipper."
     full_vidframes_list = glob(img_full_path + '/*')
     full_vidframes_list.sort()
@@ -278,7 +281,7 @@ def run_inference(args):
                 use_cache=True,
                 stopping_criteria=[stopping_criteria])
     outputs = tokenizer.batch_decode(output_ids[:, input_ids.shape[1]:], skip_special_tokens=True)[0].strip()
-    import ipdb; ipdb.set_trace()
+    print("outputs: ", outputs)
 
     
 
