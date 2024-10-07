@@ -1,4 +1,4 @@
-# Answerability Reasoning in Question Answering for Video (ver2)
+# Answerability Reasoning in Question Answering for Video for 3rd year
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -13,98 +13,99 @@ To get a local copy up and running follow these simple example steps.
 
 ### 0. Dependencies
 
-create a conda environment from `enviromentve_ver2.yaml` file.
+create a conda environment from `environment.yaml` file.
 
 
   ```sh
-  conda env create --name ENV_NAME --file environment_ver2.yaml
+  cd 3rd_year_video_understanding
+  conda env create --name ENV_NAME --file environment.yaml
   ```
 
-
-After activate the conda environment, download spaCy for english
-  ```sh
-  python -m spacy download en_core_web_lg
-  ```
-
-Please use the NLTK Downloader to obtain the resource:
- ```sh
-  python 
-  import nltk
-  nltk.download('punkt')
-  ```
+Download a provided model. The path of this model would be `[SAVED_MODEL_PATH]` in the followed instruction.
 
 
-  <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### 1. Downlaod Dataset
-We are using DramaQA dataset from this year for answerability reasoning in Video Question Answering
-
-Download questions raw data from: https://dramaqa.snu.ac.kr/ 
-
-Generate scene graph following: https://github.com/youngyoung1021/cross-graph-attention 
-
-
-
-For the easier running, we recommend the data file structure looks like this:
-
+### 1. Prepare Dataset
+We can use any type of Video QA dataset in following format. Currently the example dataset is in the `sample` folder for the test. `demo_vids` folder is for the sample-wise inference.
 ```sh
 LBA-ARVQA
+  3rd_year_video_understanding/
     dataset/
-        DramaQA/
-            AnotherMissOh_Visual_Faster_RCNN_detected.json
-            AnotherMissOhQA_train_set.json
-            AnotherMissOhQA_val_set.json
-            AnotherMissOhQA_test_set.json
-        AnotherMissOh/
-            scene_graph/
-                AnotherMissOh01/
-                  001/
-                    .
-                    . 
-                AnotherMissOh02/
-                    .
-                    .
-                    .
+      videos/
+      frames/ (optional)
+      (sample/ (for_test))
+      data/
+        qa_data.json
 
-   AnotherMissOh_object_list_extraction.py
-   AnotherMissOh_dataset_creation.py
-   AnotherMissOh_preprocess_creation.py (optional)
-   AnotherMissOh_main.py
 ```
+For the question data, the `qa_data.json` should look like 
 
-### 2. Object List Extracting from Questions
-Following commands should run without error:
 ```sh
-python AnotherMissOh_object_list_extraction.py
+[
+    {
+        "vid": "HPjONYEKwnY.mp4",
+        "question": "How does the adult adjust the settings of the phototherapy machine in the video?",
+        "answer": "The question is unanswerable because the video does not feature a phototherapy machine."
+    },
+    .
+    .
+    .
+]
 ```
 
-### 3. Dataset augmentation to train the reasoning model
-Following commands should run without error:
+or
 ```sh
-python AnotherMissOh_dataset_creation.py
+[
+    {
+        "vid": "HPjONYEKwnY",
+        "question": "How does the adult adjust the settings of the phototherapy machine in the video?",
+        "answer": "The question is unanswerable because the video does not feature a phototherapy machine."
+    },
+    .
+    .
+    .
+]
 ```
 
-### 4. Preprocess the train/val/test dataset for fast experiment (optional)
-When you run the main code, it contains the data preprocessing procedure. Since it takes quite few times, we provide the preprocess code to save the preprocessed data for further uses.  
-Following commands should run without error:
+When we input the video frames (`dataset/sample/data/sample_img.json`), the dataset should be the folder name of each video frames or when we input the video file itself (`dataset/sample/data/sample_vid.json`), the vid in the dataset should be the file name of the video.
+
+### 2. Preprocess video into the frames (optional)
+For the fast inference, you can convert the video into frames in advance. 
+Please modify the `video_folder` into the folder of videos, and `output_folder` into the output folder for the frames.
 ```sh
-python AnotherMissOh_preprocess_creation.py --save_name [SAVE_FILE_NAME]
+python dataset/convert_vid_to_frames.py 
 ```
 
-### 5. Training
-For now, we only have single GPU training:
+### 3. Inference 
+When you have the dataset that you want to evaluate, run the following command
+* Inference for demo and input data format: video 
 ```sh
-CUDA_VISIBLE_DEVICES=0 python AnotherMissOh_main.py --do_train --save_criterion loss
+python inference/run_inference_sample.py --model-path [SAVED_MODEL_PATH] --input_video
 ```
 
-If you have preprocessed data, you need to add `--do_preprocess` and preprocess dataset path (i.e., `--preprocessed_train_data`, `--preprocessed_valid_data`)
-
-### 6. Inference
-For the inference only argument needs to be changed:
+* Inference for demo and input data format: images (video converted into frames) 
 ```sh
-CUDA_VISIBLE_DEVICES=0 python AnotherMissOh_main.py --do_test
+python inference/run_inference_sample.py --model-path [SAVED_MODEL_PATH] --input_image_frames
 ```
-If you have preprocessed data, you need to add `--do_preprocess` and preprocess dataset path (i.e., `--preprocessed_test_data`)
+
+* Inference for evaluating or large scale and input data format: video
+```sh
+python inference/run_inference_dataset.py --model-path [SAVED_MODEL_PATH] --input_video --save_name [SAVE_RESULT_FILE_NAME] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --data_name qa_data.json --data_path dataset 
+```
+
+* Inference for evaluating or large scale and input data format: images (video converted into frames)
+```sh
+python inference/run_inference_dataset.py --model-path [SAVED_MODEL_PATH] --input_image_frames --save_name [SAVE_RESULT_FILE_NAME] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --data_name qa_data.json --data_path dataset
+```
+
+For the large scale inference, you can use the sample dataset uploaded in this repository without setting `data_name` and `data_path`
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+### 4. Extracting the unanswerable entity (optional)
+If you want to extract the specific entity of the reason why the question is unanswerable, run the following command. It will save the processed json file in the `result` folder
+```sh
+python inference/process_unanswerable_answer.py --pred_path [PREDICTION_FILE_FROM_STEP3] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --save_name [PROCESSED_FILE_NAME_FOR_SAVE]
+```
 
 <!-- CONTRIBUTING -->
 ## Contributing

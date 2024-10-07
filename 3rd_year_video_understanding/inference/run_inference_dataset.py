@@ -62,8 +62,9 @@ def parse_args():
     parser.add_argument("--input_image_frames", action="store_true", help="Whether to use image frames as input (already converted)")
 
     parser.add_argument("--save_name", type=str, default="pred_output.json", help="Name of the output file")
-    parser.add_argument("--home_path", type=str, required=True, help="Home path of LBA-ARVQA")
-    parser.add_argument("--data_path", type=str, default="dataset/sample", help="Data path of LBA-ARVQA")
+    parser.add_argument("--home_path", type=str, required=True, help="Path of LBA-ARVQA 3rd_year_video_understanding")
+    parser.add_argument("--data_path", type=str, default="dataset/sample", help="Data path")
+    parser.add_argument("--data_name", type=str, default="sample_img.json", help="Data file name saved under data_path")
 
     parser.add_argument("--batch_size", type=int, default=1)
 
@@ -248,7 +249,8 @@ def run_inference(args):
     
 
     data_root_dir = os.path.join(args.home_path, args.data_path)
-    data_fname = os.path.join(data_root_dir, "data", 'sample_img.json')
+    data_fname = os.path.join(data_root_dir, "data", args.data_name)
+    # data_fname = os.path.join(data_root_dir, "data", 'sample_img.json')
     # data_fname = os.path.join(data_root_dir, "data", 'sample_vid.json')
     frame_path = os.path.join(data_root_dir, "frames") # when use the input video frames
     video_path = os.path.join(data_root_dir, "videos") # when use the input video 
