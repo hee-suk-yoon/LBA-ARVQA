@@ -1,0 +1,20 @@
+[
+    {
+        "vid": "HPjONYEKwnY",
+        "question": "How does the adult adjust the settings of the phototherapy machine in the video?",
+        "gt_answer": "The question is unanswerable because the video does not feature a phototherapy machine.",
+        "pred": "The question is unanswerable because the video does not show any phototherapy machine, let alone any adjustment of its settings."
+    },
+    {
+        "vid": "cRXzFeN0NYM",
+        "question": "What material is the table made of that the customer was pushing?",
+        "gt_answer": "The video does not show any customer pushing a table, so I cannot provide an answer to this question.",
+        "pred": "The question is unanswerable because the video does not show a table being pushed by a customer. The video only shows a woman getting her nails done."
+    },
+    {
+        "vid": "v_98ukqD62X5s",
+        "question": "is the person in yellow clothes a man",
+        "gt_answer": "yes",
+        "pred": "Yes, the person in yellow clothes is a man."
+    }
+]

@@ -1,7 +1,6 @@
 import cv2
 import os
 import json
-import argparse
 
 from tqdm import tqdm
 from multiprocessing import Pool
