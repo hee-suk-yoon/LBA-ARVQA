@@ -22,7 +22,7 @@ import os
 import shutil
 import json
 from glob import glob
-from infer_utils import get_chunk, load_json, save_json, load_frames, load_jsonl, save_jsonl, select_n_frames_from_video
+from infer_utils import get_chunk, load_json, save_json, load_frames, load_jsonl, save_jsonl, select_n_frames_from_video, load_video_into_frames
 
 from torch.utils.data import DataLoader # added by esyoon 2024-08-30-02:40:45
 import torch.nn.functional as F # added by esyoon 2024-08-30-13:46:53
@@ -34,8 +34,8 @@ def parse_args():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-path", type=str, default='/data/kakao/workspace/models/vlm_rlaif_video_llava_7b')
-    # parser.add_argument("--model-base", type=str, default=None)
     parser.add_argument("--model-base", type=str, default=None)
+    # parser.add_argument("--model-base", type=str, default="/data/kakao/workspace/models/llava-v1.5-7b")
 
     # Define the command-line arguments
     parser.add_argument('--images', action='store_true')
@@ -231,22 +231,20 @@ def run_inference(args):
 
         model.cuda()
     
-    img_full_path = "/data2/esyoon_hdd/MOMA-LRG/videos/frames/BLVFoLDBReU"
-    # img_full_path = "/home/work/workspace/data/MOMA-LRG/frames/BLVFoLDBReU"
-    # question = "Is there any basketball player in the video?"
-    # question = "What color is the nail clipper in the video?"
-    question = "What color is the towel in the video?"
-    answer = "A worker in a salon is trimming a client's toenails with a nail clipper."
-    full_vidframes_list = glob(img_full_path + '/*')
-    full_vidframes_list.sort()
+    video_path = input("Enter the video path: ")
+    question = input("Enter the question: ")
+    if args.input_image_frames:
+        full_vidframes_list = glob(video_path + '/*')
+        full_vidframes_list.sort()
+        images = load_frames(full_vidframes_list, 50)
+        image_tensor = process_images(images, image_processor, args)
+        image_tensor = image_tensor.to(model.device, dtype=torch.bfloat16)
 
-    images = load_frames(full_vidframes_list, 50)
-    image_tensor = process_images(images, image_processor, args)
-    image_tensor = image_tensor.to(model.device, dtype=torch.bfloat16)
-    sample_set = {}
-    sample_set["images"] = img_full_path
-    sample_set["question"] = question
-    sample_set["answer"] = answer
+    elif args.input_video:
+        images = load_video_into_frames(video_path, num_frames=50, return_tensor=False)
+        image_tensor = process_images(images, image_processor, args)
+        image_tensor = image_tensor.to(model.device, dtype=torch.bfloat16)
+        images = image_tensor
 
     # Get conversation
     conv = conv_templates[args.conv_mode].copy()
@@ -284,11 +282,6 @@ def run_inference(args):
     print("outputs: ", outputs)
 
     
-
-    
-        
-
-
 if __name__ == "__main__":
     args = parse_args()
     run_inference(args)
