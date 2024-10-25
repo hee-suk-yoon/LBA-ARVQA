@@ -106,7 +106,12 @@ If you want to extract the specific entity of the reason why the question is una
 ```sh
 python inference/process_unanswerable_answer.py --pred_path [PREDICTION_FILE_FROM_STEP3] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --save_name [PROCESSED_FILE_NAME_FOR_SAVE] --api_key [OPENAI_KEY]
 ```
+When you don't want to use GPT API, you can use llama-3-8b-instruct instead.
+```sh
+python inference/process_unanswerable_answer.py --pred_path [PREDICTION_FILE_FROM_STEP3] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --save_name [PROCESSED_FILE_NAME_FOR_SAVE] --llama3_path [MODEL_PATH_OF_LLAMA3] --run_model llama3
+```
 
+You can cehck the example of the processed results is in `result/llama3_entity_extraction.json`
 <!-- CONTRIBUTING -->
 ## Contributing
 
