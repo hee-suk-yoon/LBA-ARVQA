@@ -14,6 +14,19 @@ import re
 import ast
 from multiprocessing.pool import Pool
 
+sys.path.append(os.path.abspath(os.path.join(os.path.abspath(__file__), os.path.pardir, os.path.pardir)))
+sys.path.append(os.path.abspath(os.path.join(os.path.abspath(__file__), os.path.pardir, os.path.pardir, "transformers-4.41-release", 'src')))
+
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+
+# added by esyoon 2024-10-25-21:19:50
+CHAT_TEMPLATE = {
+
+     "llama-3": "{% set loop_messages = messages %}{% for message in loop_messages %}{% set content = '<|start_header_id|>' + message['role'] + '<|end_header_id|>\n\n'+ message['content'] | trim + '<|eot_id|>' %}{% if loop.index0 == 0 %}{% set content = bos_token + content %}{% endif %}{{ content }}{% endfor %}{% if add_generation_prompt %}{{ '<|start_header_id|>assistant<|end_header_id|>\n\n' }}{% endif %}",
+
+} 
+
 def get_arguments():
     parser = argparse.ArgumentParser(description='Generate GPT judgement for activity net (answerable questions)')
 
@@ -26,7 +39,7 @@ def get_arguments():
     parser.add_argument(
     "--api_key",
     type=str,
-    required=True,
+    default=None,
     help="OpenAI API key"
     )
 
@@ -44,6 +57,8 @@ def get_arguments():
     parser.add_argument("--pred_path", required=True, help="The path to file containing prediction.")
     parser.add_argument("--home_path", type=str, required=True, help="Path of LBA-ARVQA 3rd_year_video_understanding")
     parser.add_argument("--save_name", type=str, default="pred_processed", help="The path to save annotation final combined json file.")
+    parser.add_argument("--run_model", type=str, default="gpt", help="use gpt or llama3")
+    parser.add_argument("--llama3_path", type=str, default=None, help="The path to file containing llama3 model.")
 
 
     args = parser.parse_args()
@@ -121,8 +136,7 @@ def main():
     # Parse arguments.
     args = get_arguments()
 
-    file = open(args.pred_path)
-    pred_contents = json.load(file)
+    pred_contents = json.load(open(args.pred_path))
     output_save = []
 
     output_dir = os.path.join(args.home_path, "result")
@@ -130,23 +144,84 @@ def main():
         os.makedirs(output_dir)
     save_fname = os.path.join(output_dir, args.save_name + '.json')
 
+    if args.run_model == "llama3":
+        if not os.path.exists(args.llama3_path):
+            print("Please provide the correct path to llama3 model.")
+            sys.exit()
+        # load llama3 model
+        model = AutoModelForCausalLM.from_pretrained(args.llama3_path, torch_dtype=torch.bfloat16)
+        tokenizer = AutoTokenizer.from_pretrained(args.llama3_path)
+        tokenizer.chat_template = CHAT_TEMPLATE["llama-3"]
+
     for idx, pred_item in enumerate(tqdm(pred_contents)):
         question = pred_item["question"]
         answer = pred_item["gt_answer"]
         pred = pred_item["pred"]
+        if args.run_model == "gpt":
 
-        response_message, response_dict = annotate(args, question, pred)
-        import ipdb; ipdb.set_trace()
+            if args.api_key is None:
+                print("Please provide the OpenAI API key.")
+                sys.exit()
+
+            response_message, response_dict = annotate(args, question, pred)
+
+        elif args.run_model == "llama3":
+
+            input_text = [
+                {
+                "role": "user",
+                "content": 
+                    "##INSTRUCTIONS: "
+                    "- Evaluate whether the predicted answer identifies if the question is answerable ('yes' or 'no').\n"
+                    "- If the predicted answer indicates that the question is unanswerable, provide the reason why the question is unanswerable based on the question and prediction.\n"
+                    "- The reasoning should be the NOUN or NOUN PHRASE that is missing in the prediction to make it answerable.\n"
+                    "- The output should be in the strict format of a Python dictionary as follows:\n\n"
+                    "1. If the predicted answer is answerable: {'answerable': 'yes', 'reasoning': None}.\n"
+                    "2. If the predicted answer is unanswerable: {'answerable': 'no', 'reasoning': '<missing element>'}, where '<missing element>' could be specific object, relation, or attribute mentioned in the question.\n"
+                    "------\n"
+                    "Please evaluate the following video-based question-answer pair:\n\n"
+                    f"Question: {question}\n"
+                    f"Predicted Answer: {pred}\n\n"
+                    "Provide your evaluation in the form of a Python dictionary without any other text:\n"
+                    "- If the predicted answer is answerable, respond with: {'answerable': 'yes', 'reasoning': None}.\n"
+                    "- If the predicted answer indicates that the question is unanswerable, respond with: {'answerable': 'no', 'reasoning': 'cat'}."
+                }
+            ]
+
+            if tokenizer.pad_token is None:
+                tokenizer.pad_token = tokenizer.eos_token
+
+            processed_input = tokenizer.apply_chat_template(input_text, tokenize=False, add_generation_prompt=True)
+            tokenized_input = tokenizer(processed_input, return_tensors="pt", padding=True, truncation=True)
+
+
+            # Generate response
+            response = model.generate(
+                input_ids=tokenized_input["input_ids"],
+                max_length=2048,
+                pad_token_id=tokenizer.eos_token_id,
+                eos_token_id=tokenizer.eos_token_id,
+                num_return_sequences=1,
+                do_sample=True
+            )
+            response_text = tokenizer.batch_decode(response[:,tokenized_input["input_ids"].shape[1]:], skip_special_tokens=True)[0]
+
+            response_dict = extract_dict_from_string(response_text)
+
+
         save_item = {
-            "vid": pred_item["vid"],
-            "question": question,
-            "gt_answer": answer,
-            "pred": pred,
-            "answerable": response_dict["answerable"],
-            "reasoning": response_dict["reasoning"],
+                "vid": pred_item["vid"],
+                "question": question,
+                "gt_answer": answer,
+                "pred": pred,
+                "answerable": response_dict["answerable"],
+                "reasoning": response_dict["reasoning"],
 
-        }
+            }
         output_save.append(save_item)
+        with open(save_fname, "w") as f:
+            json.dump(output_save, f, indent=4)
+
 
 
     # Write combined content to a json file
