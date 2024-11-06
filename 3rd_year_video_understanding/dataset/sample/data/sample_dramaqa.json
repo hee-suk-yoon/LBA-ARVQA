@@ -1,0 +1,32 @@
+[
+    {
+        "vid": "AnotherMissOh14_003_0123",
+        "question": "What color is the spoon Haeyong1 buying?",
+        "answer": "The question is unanswerable because the video does not show Haeyoung1 buying anything."
+    },
+    {
+        "vid": "AnotherMissOh14_003_0123",
+        "question": "What is Haeyoung1 eating with spoon?",
+        "answer": "Haeyoung1 is eating rice."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What are the people using to move to the park together?",
+        "answer": "The people are using the car to move to the park together."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What are the people doing who are taking the blue car to the park?",
+        "answer": "This is unanswerable question becuase the video does not show the people taking the blue car to the park."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What is the color of the door?",
+        "answer": "The color of the door is brown."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What is the shape of the bag Dokyung is carrying?",
+        "answer": "This is unanswerable because there is no bag in the video."
+    }
+]

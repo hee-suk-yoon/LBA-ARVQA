@@ -1,0 +1,38 @@
+[
+    {
+        "vid": "AnotherMissOh14_003_0123",
+        "question": "What color is the spoon Haeyong1 buying?",
+        "gt_answer": "The question is unanswerable because the video does not show Haeyoung1 buying anything.",
+        "pred": "The question is unanswerable because the video does not show Haeyong1 buying a spoon."
+    },
+    {
+        "vid": "AnotherMissOh14_003_0123",
+        "question": "What is Haeyoung1 eating with spoon?",
+        "gt_answer": "Haeyoung1 is eating rice.",
+        "pred": "Haeyoung1 is eating food with a spoon. This information is visible in the video."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What are the people using to move to the park together?",
+        "gt_answer": "The people are using the car to move to the park together.",
+        "pred": "The people are using a car to move to the park together."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What are the people doing who are taking the blue car to the park?",
+        "gt_answer": "This is unanswerable question becuase the video does not show the people taking the blue car to the park.",
+        "pred": "The people are loading luggage into the back of the blue car and then driving it to the park."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What is the color of the door?",
+        "gt_answer": "The color of the door is brown.",
+        "pred": "The door is black in color."
+    },
+    {
+        "vid": "AnotherMissOh15_010_0348",
+        "question": "What is the shape of the bag Dokyung is carrying?",
+        "gt_answer": "This is unanswerable because there is no bag in the video.",
+        "pred": "The question is unanswerable because the video does not show any person named \"Dokyung\" or any bag in the video."
+    }
+]

@@ -175,7 +175,8 @@ def collate_fn(args, model, tokenizer, image_processor, batch):
     conv = conv_templates[args.conv_mode].copy()
 
     if args.input_image_frames:
-        batch_images = [load_frames(glob(item['vid_path'] + '/*'), args.num_frames) for item in batch]
+        batch_images = [load_frames(glob(item['vid_path'] + '/*'), len(glob(item['vid_path'] + '/*'))) for item in batch]
+        import ipdb; ipdb.set_trace()   
     elif args.input_video:
         batch_images = [load_video_into_frames(item['vid_path'], num_frames=args.num_frames, return_tensor=False) for item in batch]
     image_tensor = [process_images(images, image_processor, args) for images in batch_images]
@@ -249,10 +250,14 @@ def run_inference(args):
     
 
     data_root_dir = os.path.join(args.home_path, args.data_path)
-    data_fname = os.path.join(data_root_dir, "data", args.data_name)
+    data_fname = os.path.join(data_root_dir, "sample/data", args.data_name)
     # data_fname = os.path.join(data_root_dir, "data", 'sample_img.json')
     # data_fname = os.path.join(data_root_dir, "data", 'sample_vid.json')
-    frame_path = os.path.join(data_root_dir, "frames") # when use the input video frames
+    if args.do_dramaQA:
+        data_fname = os.path.join(data_root_dir, "sample/data", args.data_name)
+        frame_path = os.path.join(data_root_dir, "sample", "DramaQA") # when use the input video frames
+    else:
+        frame_path = os.path.join(data_root_dir, "frames") # when use the input video frames
     video_path = os.path.join(data_root_dir, "videos") # when use the input video 
     args.save_path = os.path.join(args.home_path, "result")
     save_fname = os.path.join(args.save_path, args.save_name + '.json')
