@@ -68,6 +68,8 @@ def parse_args():
 
     parser.add_argument("--batch_size", type=int, default=1)
 
+    parser.add_argument("--do_dramaQA", action="store_true", help="Whether to use DramaQA dataset")
+
 
     return parser.parse_args()
 
@@ -176,7 +178,6 @@ def collate_fn(args, model, tokenizer, image_processor, batch):
 
     if args.input_image_frames:
         batch_images = [load_frames(glob(item['vid_path'] + '/*'), len(glob(item['vid_path'] + '/*'))) for item in batch]
-        import ipdb; ipdb.set_trace()   
     elif args.input_video:
         batch_images = [load_video_into_frames(item['vid_path'], num_frames=args.num_frames, return_tensor=False) for item in batch]
     image_tensor = [process_images(images, image_processor, args) for images in batch_images]

@@ -3,7 +3,7 @@
         "vid": "AnotherMissOh14_003_0123",
         "question": "What color is the spoon Haeyong1 buying?",
         "gt_answer": "The question is unanswerable because the video does not show Haeyoung1 buying anything.",
-        "pred": "The question is unanswerable because the video does not show Haeyong1 buying a spoon."
+        "pred": "The question is unanswerable because the video does not show Haeyong1 buying a spoon, let alone its color."
     },
     {
         "vid": "AnotherMissOh14_003_0123",
@@ -21,18 +21,18 @@
         "vid": "AnotherMissOh15_010_0348",
         "question": "What are the people doing who are taking the blue car to the park?",
         "gt_answer": "This is unanswerable question becuase the video does not show the people taking the blue car to the park.",
-        "pred": "The people are loading luggage into the back of the blue car and then driving it to the park."
+        "pred": "The people are seen opening the door of the blue car and then getting out of the car. This information is directly visible in the video without relying on any caption."
     },
     {
         "vid": "AnotherMissOh15_010_0348",
         "question": "What is the color of the door?",
         "gt_answer": "The color of the door is brown.",
-        "pred": "The door is black in color."
+        "pred": "The door is black."
     },
     {
         "vid": "AnotherMissOh15_010_0348",
         "question": "What is the shape of the bag Dokyung is carrying?",
         "gt_answer": "This is unanswerable because there is no bag in the video.",
-        "pred": "The question is unanswerable because the video does not show any person named \"Dokyung\" or any bag in the video."
+        "pred": "The question is unanswerable because the video does not show a bag being carried by anyone named \"Dokyung.\""
     }
 ]

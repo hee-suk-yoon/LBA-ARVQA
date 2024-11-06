@@ -111,6 +111,13 @@ When you don't want to use GPT API, you can use llama-3-8b-instruct instead.
 python inference/process_unanswerable_answer.py --pred_path [PREDICTION_FILE_FROM_STEP3] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --save_name [PROCESSED_FILE_NAME_FOR_SAVE] --llama3_path [MODEL_PATH_OF_LLAMA3] --run_model llama3
 ```
 
+### 5. Run Inference for DramaQA samples (optional)
+* Inference for DramaQA samples (image frames are placed in `sample/DramaQA`, sample json file is `dataset/sample/data/sample_dramaqa.json`)
+```sh
+python inference/run_inference_dataset.py --model-path [SAVED_MODEL_PATH] --input_image_frames --save_name [SAVE_RESULT_FILE_NAME] --home_path [ABS_PATH_FOR_3rd_year_video_understanding] --data_name sample_dramaqa.json --data_path dataset --do_dramaQA
+```
+
+
 You can cehck the example of the processed results is in `result/llama3_entity_extraction.json`
 <!-- CONTRIBUTING -->
 ## Contributing
