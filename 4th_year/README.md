@@ -69,13 +69,6 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 <!-- CONTACT -->
 ## Contact
 
@@ -93,4 +86,5 @@ Project Link: [https://github.com/tomyoon2/LBA-ARVQA](https://github.com/tomyoon
 This work was supported by Institute of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea government(MSIT) (No. 2022-0-00951, Development of Uncertainty-Aware Agents Learning by Asking Questions)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
