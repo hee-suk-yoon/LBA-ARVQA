@@ -4,8 +4,8 @@ set -x
 
 # MODEL_PATH=/data/kakao/workspace/models/Qwen3-VL-4B-Instruct
 # EVAL_MODEL_PATH=/data2/esyoon_hdd/workspace/videoqa-log/qwen3vl/lora/sft-4000-lr5e-5/checkpoint-40
-MODEL_PATH=/data2/esyoon_hdd/workspace/models/Qwen3-VL-8B-Instruct
-EVAL_MODEL_PATH=/data2/esyoon_hdd/workspace/videoqa-log/qwen3vl-8b/lora/sft-lr1e-6/checkpoint-79
+MODEL_PATH=Qwen/Qwen3-VL-8B-Instruct
+EVAL_MODEL_PATH=TRAINED_MODEL_DIR
 
 llamafactory-cli train \
     --model_name_or_path ${MODEL_PATH} \

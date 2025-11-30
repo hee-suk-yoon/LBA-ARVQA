@@ -2,7 +2,7 @@
 
 set -x
 
-MODEL_PATH=/data2/esyoon_hdd/workspace/models/Qwen3-VL-8B-Instruct
+MODEL_PATH=Qwen/Qwen3-VL-8B-Instruct
 
 llamafactory-cli train \
     --model_name_or_path ${MODEL_PATH} \
@@ -20,7 +20,7 @@ llamafactory-cli train \
     --overwrite_cache \
     --preprocessing_num_workers 30 \
     --dataloader_num_workers 30 \
-    --output_dir /data2/esyoon_hdd/workspace/videoqa-log/qwen3vl-8b/lora/8b-sft-lr5e-5 \
+    --output_dir OUTDIR_HERE \
     --logging_steps 5 \
     --save_steps 10 \
     --plot_loss \
