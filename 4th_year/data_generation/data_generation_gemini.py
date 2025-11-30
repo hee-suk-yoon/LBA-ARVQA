@@ -71,9 +71,9 @@ def get_arguments():
     return args
 
 
-# ----------------------------
+# ---------------------------- #
 # Frame extraction / loading
-# ----------------------------
+# ---------------------------- #
 def get_video_frames(video_path, num_frames=64):
     video = cv2.VideoCapture(video_path)
     base64Frames = []
