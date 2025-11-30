@@ -1,0 +1,2042 @@
+[
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/IxX8_T8Tj8Y.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is winning?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean at the final buzzer or in the middle of the game?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/CrG64hSvUD8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is speaking in the video?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the presenter/interviewer segment or the restaurant server at the table?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/ayS6z90dOO0.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color of shirt is the woman wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the staff or the guest?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/FJUD0a5lEWw.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is on the phone?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the person on the stairs or the receptionist at the desk?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/3zhWhNVgnJY.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What does she put on the baby?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about an item of clothing, or something used as a covering?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/iV9hI-qpWWQ.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How is the child riding the bike?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the child's riding when an adult is assisting, or later when the child is riding alone?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/4pptxtS9K7E.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How many people are on the ground?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which instance of people on the ground are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/7KK4HKM-BDc.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When does the man start walking?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about when he starts walking with the basic leg brace, or with the robotic exoskeleton, or with a cane?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/f4RTaVnCnLI.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Which woman is riding the bike?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which woman are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/OXxcLxvdHBc.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>A player fell. Where did it happen?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which player are you referring to, the one from the Lakers or the Mavericks?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/S8RR_9-HTfI.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What does '5' refer to?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the countdown, a jersey number, or a score?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/TsVszuoiV74.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the player in the pink and green jersey doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which player are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/T_9K0N9hSEc.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What was done during the security check?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the action that caused the physical incident?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/An4kjNqbwfE.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How is the child balancing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about when the pedals were off or when the pedals were on?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/ESvujYr7XDU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When did this event take place?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the year it was held, or the general time of day depicted?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Bea0k-9z7h4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When did the incident happen?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the date the response was recorded, or the exact time the car fire started?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/g1sSwRVfRyg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the man holding?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which item is he holding when he is proposing?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/dKmgaaJT7yw.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color of shirt is the person wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the man or the woman?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/9ekLF1FGz2k.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is holding the walking aid?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the person whose hands are on the aid for support, or the person positioning/guiding the aid?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/WVIleg_ZAf8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What did player 7 do?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which team's player 7 are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/I5yjVm3bSRs.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How many fire trucks are present?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about all fire department vehicles or only the large ladder trucks?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/f-W522lJtBQ.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who performed the pat-down?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the officer at the start of the video (bald with glasses) or the other officer (with dark hair)?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/d6LsuXh9lm4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is burning?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about a vehicle or something else?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Jh2Ofwqftno.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who scored multiple goals?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which match are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/VOvDKNSd0sY.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the player wearing number 11 doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which player wearing number 11 are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/SsM4HqcwsI4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is handed over?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about an object handed over to the presenter or by the presenter to someone else?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/LKlKISrMD0Y.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Which arm is getting injected?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which person are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/2RDCs79BBRU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What colored shirt is getting shot?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the woman or the man?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/T9hiKTd8W6w.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is putting on the shoes?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the person whose shoes are being put on, or the person performing the action?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/_4yVQ5hSz1c.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is playing the piano?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the person with glasses and a beard, the woman in black, or another person?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/e0HTO41fiyU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Where is the baby?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking in the beginning or end of the video?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/3uIk5WjVoBk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What was the child doing on the bed?"
+            },
+            {
+                "role": "assistant",
+                "content": "Was the child actively moving or resting?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/j-nzZjU8mEs.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is burning?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the car fire or the small battery demonstration?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/e6Ul3cx97ho.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the baby eating?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the general type of food, or the specific ingredient shown being fed?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/4X4Vo0kn_y4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What was the United States' score?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which game are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Ubjq2BEF52E.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the color of the shirt that the man is wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean in the beginning of the video or in the latter frames?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/aM8T6RjRL3s.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is being trimmed?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about his head hair or his beard?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/imPQ3lysWnU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is on the bike?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the one who is learning to ride, or the one demonstrating?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/bBPt1Xctnes.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is she doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the woman receiving the service or the woman performing it?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/e5GTT8g-N9U.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What did the man in the yellow shirt do?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about his interaction with the woman in the green mask?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/AyjbS2GmH9E.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the player in yellow doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about their physical action or the outcome of the play?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/gHYbSQCQWAg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the person in the yellow shirt doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which person in the yellow shirt are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/PH5SE_Q7p5o.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who scored a point?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which player scored their first visible point on the scoreboard in this sequence of frames?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/WXebOFhT9Og.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is in the white dress?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the woman accepting the award or the woman presenting it?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/V6DRL-Q_3AY.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the number of the player driving the ball in a dark jersey?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the player who passes after driving, or the one who takes a shot?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/diYypxe7JNA.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Where is the music?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the sheet music or the sound?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/EmHZzAoGHUs.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is speaking?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the person holding the golden award, or the person in the white dress?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/HPjONYEKwnY.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the long black object seen with the characters used for?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about its function as a security device?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/cGuoio-kc_8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is helping the baby on the motorcycle?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which man are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/aJmo9Eu1aJw.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is presented to the customer last?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about a food item or a transaction-related item?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/RI0xj8aaTlE.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What fast food feature is being adopted?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about physical technology in the drive-thru lane?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/PhSblQFGd3E.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is toast?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the food item or the celebratory act?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/UIL9ZCUeqT0.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What was the result?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the outcome for the person who resisted the police?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/8hK4UzAH0rk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color is the cream being applied to the person's leg?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the woman or the man?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/QjVT8oCSs3w.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How many trucks are visible?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the fire trucks or other types of trucks (e.g., delivery trucks)?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/2CEcXii6Lg4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who made the basket?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the dunk labeled in the video?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/7V7XQl4RjJg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the score shown?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which game's score are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/NIsDrtPTTd8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the woman in the floral shirt doing on the bike?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about when her feet are on the ground or on the pedals?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Z_H_cQM2YRA.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the score?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which game's score are you interested in?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/DsxxgJTXr8Y.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the player in blue doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the player near the basket, wearing number 3?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/CABqlL02I28.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the bearded man doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which activity are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/8NkQPRXzy7w.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What was the yellow player doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Were you asking about his interaction with the ball or with the red player?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/-qKjFko8ftc.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the nurse doing with the tubes?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which tube are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/ZXvUxddAlc8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who ran onto the field?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the person in the black swimsuit or the person in the yellow costume?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/e0wDPZ0D9Wk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the procedure about?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the general subject of the video, or the specific substance being administered?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/_7p9p4F26_4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What did he just receive?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to an object or a gesture?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/bas3gu9WdPg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What did people do on the mistletoe cam?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about marriage proposals or kisses?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/URlPDv8_89g.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is wearing the gold watch?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the person washing the hair or the person getting their hair washed?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/BLVFoLDBReU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the player in the green jersey doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "When are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/P57aWIsTc_c.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is holding the baby?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about a doll or a real baby?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/2GjzeelbiBs.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the firefighter spraying?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the firefighter spraying water outside or the one spraying fire inside?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/7tyGdopBtXk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When does a player use a crutch?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking for the clip number, or the exact time in the video?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/R0unHKwIXC0.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the current point score in the table tennis game?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which game are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/WlsY3dDNE7A.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When did the rider fall?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which rider are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/GH6S0bbOWDU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who received the red card?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the player visible in the red jersey receiving the card, or the player named in the subtitle?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/htMwI7kSJRw.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is happening at the free throw line?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about a player shooting a free throw?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/OZfSVPsMiZk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the person wearing on their wrist?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which person are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/jhpe_TSuadg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What happened to the individuals who were lost?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about their survival?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/2LEjhvD2Lzo.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When is the hair wet?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about during the wash or during the styling process?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/eLJ5MoSPjVE.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is celebrating?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the player seen celebrating the most goals?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Sn7TKb5POU0.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the woman wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which woman are you referring to?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/LrMVUDt1R6M.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When does a bike fall?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about a bicycle tipping over or being dropped, or a person falling off a bike during an incident?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/BDbkQp2NDQo.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is being removed?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about shoes or items from pockets?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/_sZKDRlHQUE.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the woman wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which woman are you asking about? The one in the black dress or another?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/FjBg01LT8yg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is asking for HW?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you referring to the person visible in the frames or the brand symbol?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/IrZKHN6Ec6o.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How many 'best dunks' are there?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the literal text 'Best Dunks' or the individual dunk plays?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/7c2YA8dgtoM.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What are they doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which group are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/IxX8_T8Tj8Y.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is player 47 doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which team's player 47 are you asking about?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/CrG64hSvUD8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What recommendations did the waiter give?"
+            },
+            {
+                "role": "assistant",
+                "content": "Are you asking about the initial general recommendations, or the recommendations given after the customers clarified their preferences?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/1s5KBXCTGtg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color are the uniforms?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which country do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/3zhWhNVgnJY.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Where is the baby lying?"
+            },
+            {
+                "role": "assistant",
+                "content": "When are you mean, at the beginning, middle or end of the video?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/iV9hI-qpWWQ.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color are the cones?"
+            },
+            {
+                "role": "assistant",
+                "content": "The cones are in various colors. When do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/1XSzc3dVCwk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the person wearing gloves holding?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are several scenes with people wearing gloves. Could you specify when you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/f_qp3cXWDKk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the gender of the person speaking into the microphone?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are two people speaking into microphone. Can you clarify?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/LpCczdpw7uo.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color is the man wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are many players in the video \u2014 could you clarify which one you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/4pptxtS9K7E.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color is the helmet of the rider on the road?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which rider do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/f4RTaVnCnLI.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color is the shirt the man wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are two men in the video. Can you specify which one you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Mk_KYxCik8c.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color are the nails?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean before or after?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/gl8C8jA7ZDk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is nearer the net?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the player in red or the player in blue?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/1t5fJfZDF0U.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is blowing into the breath-testing device?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the man in the sleeveless shirt or the helmeted woman?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/bh0I-YA6aWY.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is wearing a leather jacket?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean in the red-carpet entrance shots or during the seated interview on stage?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/1HWdMttzGPE.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Is the woman wearing slippers?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean while she's still in bed or after she stands?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/cRXzFeN0NYM.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Is she holding a bottle in the salon?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are two women in the video, which one do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/OXxcLxvdHBc.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is winning?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean in the first frame or the last frame?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/S8RR_9-HTfI.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who dunked?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which dunk do you mean \u2014 the Brooklyn play at 4:28 or the earlier Atlanta dunk?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/d6YlBnhAlqA.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the person holding?"
+            },
+            {
+                "role": "assistant",
+                "content": "Who do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/74ttY4-QlIE.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What should be shaken 20 times?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the insulin or the pen device?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/TsVszuoiV74.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is dribbling the ball?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the player with '362' on his back or the player with '421'?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/T_9K0N9hSEc.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who slapped the airport worker in the video?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the person by the metal detector on the left or the woman at the conveyor?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Lsfmev_l8mI.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color is the mask worn by the person being vaccinated?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the woman or the man shown later?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/YcLch7wRJkM.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the number of the player who dunks?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are many players dunking since these are the best dunks, which one do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/An4kjNqbwfE.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Was the child scooting or pedaling in the video?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean before or after the pedals were put back on?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/ESvujYr7XDU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Which country is playing against the Chinese player?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are multiple players competing against the Chinese player \u2014 can you specify when you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Bea0k-9z7h4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What are they doing?"
+            },
+            {
+                "role": "assistant",
+                "content": "When do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/_irfJdCL2Dw.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Where is the wheelchair positioned?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean relative to the patient's body?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/g1sSwRVfRyg.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is holding the ring?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean before or after they hug?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/ORnJLvKTs74.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is he eating?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean when he parks his car or while he\u2019s driving?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/-xpPkkpmlzM.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>When number 10 scores, which country is the USA playing against?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the first or the second one?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/dKmgaaJT7yw.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color is the car in the background?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the car behind the woman or the man?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/WVIleg_ZAf8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is leading in the game?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which clip do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/I5yjVm3bSRs.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color are the letters written on the car?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which letters do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/R6jyXB1rCnk.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Which team celebrated after the goal?"
+            },
+            {
+                "role": "assistant",
+                "content": "All the teams celebrated, but I can answer if you provide more details."
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/Mve-cVBRjOc.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What is the person who got vaccinated wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the man who was vaccinated first or the seated woman?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/d6LsuXh9lm4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Is the car on fire?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which car do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/gKp7hpNr2e0.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who points at the sheet music?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the man in the suit or the man in the green jacket?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/NcyGWMP7z3c.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Is he wearing a watch?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the man applying the syringe or the man who got the injection?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/GyLlw1CgXf8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Is he wearing a helmet?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the guy riding the bike or the one filming the video?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/V7mq3e9VEF8.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is pouring the drink?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean the man wearing black or the man wearing blue?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/VOvDKNSd0sY.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Did a player dive for the disc?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean early or late in the video?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/SsM4HqcwsI4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How many people are on the stage?"
+            },
+            {
+                "role": "assistant",
+                "content": "Do you mean before or after the announcement?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/LKlKISrMD0Y.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>How many people are shown in the video?"
+            },
+            {
+                "role": "assistant",
+                "content": "When do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/f05koa6s4Jw.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who is winning?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which scoreboard do you mean \u2014 the top-left frame?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/2RDCs79BBRU.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Is the woman wearing glasses?"
+            },
+            {
+                "role": "assistant",
+                "content": "There are two women, which one do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/T9hiKTd8W6w.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What brand are the socks the woman is wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Who do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/-hTTwSQPmMo.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>What color is the dress the woman is wearing?"
+            },
+            {
+                "role": "assistant",
+                "content": "Who do you mean?"
+            }
+        ]
+    },
+    {
+        "videos": [
+            "/data2/esyoon_hdd/MOMA-LRG/videos/raw/3Ik4gUxa--4.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "content": "<video>Who won the shootout?"
+            },
+            {
+                "role": "assistant",
+                "content": "Which shootout do you mean \u2014 the one showing 'SEA 1 1 STAN' near the end?"
+            }
+        ]
+    }
+]
