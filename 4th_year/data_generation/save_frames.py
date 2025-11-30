@@ -149,9 +149,7 @@ def load_preprocessed_video(json_path: str) -> List[str]:
 if __name__ == "__main__":
     # Your source directories:
     video_path_list = [
-        "/data2/esyoon_hdd/MOMA-LRG/videos/raw",
-        "/data2/esyoon_hdd/Charades_v1",
-        "/data2/esyoon_hdd/ActionAtlas/videos",
+        "VIDEO_FOLDER_PATHS_YOU_WANT_TO_PREPROCESS"
     ]
 
     # Configure as needed:

@@ -5,16 +5,12 @@ from glob import glob
 from tqdm import tqdm
 
 
-gpt_data_path_list = [
-    "/data/kakao/workspace/AmbigVideoQA/dataset/Gemini/ActionAtlas",
-    "/data/kakao/workspace/AmbigVideoQA/dataset/Gemini/Charades_v1",
-    "/data/kakao/workspace/AmbigVideoQA/dataset/Gemini/MOMA-LRG"
+gen_data_path_list = [
+    "GENERATED_DATA_FOLDER_PATHS"
 ]
 
 video_root_path_dict = {
-    "ActionAtlas": "/data2/esyoon_hdd/ActionAtlas/videos",
-    "Charades_v1": "/data2/esyoon_hdd/Charades_v1",
-    "MOMA-LRG": "/data2/esyoon_hdd/MOMA-LRG/videos/raw"
+    "DATA_KEY": "RAW_VIDEO_PATH_FOR_THE_DATA"
 }
 
 def preprocess_data_folder(file_path):
@@ -50,11 +46,11 @@ def processing_chat_format(data, ):
 
 def main():
     data = []
-    for path in gpt_data_path_list:
+    for path in gen_data_path_list:
         data += preprocess_data_folder(path)
     
     processed_data = []
-    save_data_path = "/data/kakao/workspace/AmbigVideoQA/dataset/processed/gemini_processed_data.json"
+    save_data_path = "SAVE_PATH_FOR_PROCESSED_DATA.json"
     for idx, data_item in enumerate(data):
         data_item['id'] = idx
         processed_item = processing_chat_format(data_item)
