@@ -3,11 +3,15 @@ import argparse
 from tqdm import tqdm
 import argparse
 import torch
+import warnings
+warnings.filterwarnings("ignore")
 
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.abspath(__file__), os.path.pardir, os.path.pardir)))
 sys.path.append(os.path.abspath(os.path.join(os.path.abspath(__file__), os.path.pardir, os.path.pardir, "transformers-4.41-release", 'src')))
+from transformers import logging
 
+logging.set_verbosity_error()
 
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, BitsAndBytesConfig
 from transformers import VideoLlavaProcessor, VideoLlavaForConditionalGeneration
@@ -277,9 +281,10 @@ def run_inference(args):
                 temperature=args.temperature,
                 max_new_tokens=args.max_new_tokens,
                 use_cache=True,
+                streamer=streamer,
                 stopping_criteria=[stopping_criteria])
     outputs = tokenizer.batch_decode(output_ids[:, input_ids.shape[1]:], skip_special_tokens=True)[0].strip()
-    print("outputs: ", outputs)
+    #print("outputs: ", outputs)
 
     
 if __name__ == "__main__":
