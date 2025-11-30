@@ -24,9 +24,9 @@ from google.genai import types
 from google.genai.types import HttpOptions, Part
 
 
-# ----------------------------
+# ---------------------------- #
 # Args & run name helpers
-# ----------------------------
+# ---------------------------- #
 def set_runname(args):
     from datetime import date, datetime, timezone, timedelta
     KST = timezone(timedelta(hours=9))
